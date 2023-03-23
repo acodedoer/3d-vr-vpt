@@ -29,7 +29,7 @@ const CameraController = () => {
 const  App = () => {
   return (
     <div id="canvas-container">
-      <Canvas>
+      <Canvas camera={{ position: [10, 10, 0] }}>
       <CameraController />
         {/* <ambientLight intensity={0.1} />
         <directionalLight color="white" position={[0, 0, 5]} /> */}
