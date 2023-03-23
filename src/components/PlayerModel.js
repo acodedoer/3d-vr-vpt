@@ -13,28 +13,26 @@ export const  PlayerModel = (props) =>{
   let distance = 0;
   let jump = 0;
   let move = 0;
+  let dir = 0;
   const interval = 0.05;
   const [nextCell, setNextCell] = useState(distance);
-  const [moves, setMoves] = useState(["f","f", "l", "r", "l", "r", "r", "l", "r"]);
+  const [moves, setMoves] = useState(["f","f", "l", "f", "r", "f", "r", "f", "l"]);
   let moveCount = 0;
   
   let x = 0;
+
+  const getDirection = (dir) => {
+    console.log("ANS: ", dir%4)
+    if(dir%4===0) return ["z","add"];
+    else if(dir%4===1) return ["x","sub"];
+    else if(dir<0 && Math.abs(dir)%4===1) return ["x","add"];
+    else if(dir%4===2 || Math.abs(dir)%4===2 ) return ["z","sub"];
+  }
+
   useFrame((state, delta, xrFrame) => {
     // if (meshRef.current && meshRef.current.position.z<distance) {
       switch (moves[moveCount]){
         case "r":
-          if (meshRef.current && jump<size) {
-            size - jump>= interval? jump +=interval: jump += (size - jump)
-            let move = (Math.sin(((jump/size) * Math.PI))) ;
-            meshRef.current.rotation.y+= (Math.PI/2) / (size/interval);
-            meshRef.current.position.y = initY + move
-          }
-          else{
-            moveCount++
-            jump =0
-          }
-          break;
-        case "l":
           if (meshRef.current && jump<size) {
             size - jump>= interval? jump +=interval: jump += (size - jump)
             let move = (Math.sin(((jump/size) * Math.PI))) ;
@@ -43,22 +41,52 @@ export const  PlayerModel = (props) =>{
           }
           else{
             moveCount++
+            dir++;
+            jump =0
+          }
+          break;
+        case "l":
+          if (meshRef.current && jump<size) {
+            size - jump>= interval? jump +=interval: jump += (size - jump)
+            let move = (Math.sin(((jump/size) * Math.PI))) ;
+            meshRef.current.rotation.y+= (Math.PI/2) / (size/interval);
+            meshRef.current.position.y = initY + move
+          }
+          else{
+            moveCount++
+            dir--
             jump =0
           }
           break;
         case "f":
           if (meshRef.current && move<size) {
-            if(size - move >= interval){
-              move +=interval;
-              meshRef.current.position.z +=interval;
+            const direction = getDirection(dir);
+            if(direction[1] === "add"){
+              if(size - move >= interval){
+                move +=interval;
+                meshRef.current.position[direction[0]] +=interval;
+              }
+              else{
+                move += (size - move)
+                meshRef.current.position[direction[0]] += (size - move)
+              }
+              
+              let sinMove = (Math.sin(((move/size) * Math.PI))) ;
+              meshRef.current.position.y = 1.5 + sinMove
             }
-            else{
-              move += (size - move)
-              meshRef.current.position.z += (size - move)
+            else if(direction[1] === "sub"){
+              if(size - move >= interval){
+                move +=interval;
+                meshRef.current.position[direction[0]] -=interval;
+              }
+              else{
+                move += (size - move)
+                meshRef.current.position[direction[0]] -= (size - move)
+              }
+              
+              let sinMove = (Math.sin(((move/size) * Math.PI))) ;
+              meshRef.current.position.y = 1.5 + sinMove
             }
-
-            let sinMove = (Math.sin(((move/size) * Math.PI))) ;
-            meshRef.current.position.y = 1.5 + sinMove
           }
           else{
             move = 0;
