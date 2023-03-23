@@ -14,6 +14,7 @@ export const  PlayerModel = (props) =>{
   let jump = 0;
   let move = 0;
   let dir = 0;
+  let dirData = ["z","add"];
   const interval = 0.05;
   const [nextCell, setNextCell] = useState(distance);
   const [moves, setMoves] = useState(["f","f", "l", "f", "r", "f", "r", "f", "l"]);
@@ -22,7 +23,6 @@ export const  PlayerModel = (props) =>{
   let x = 0;
 
   const getDirection = (dir) => {
-    console.log("ANS: ", dir%4)
     if(dir%4===0) return ["z","add"];
     else if(dir%4===1) return ["x","sub"];
     else if(dir<0 && Math.abs(dir)%4===1) return ["x","add"];
@@ -43,6 +43,7 @@ export const  PlayerModel = (props) =>{
             moveCount++
             dir++;
             jump =0
+            dirData = getDirection(dir);
           }
           break;
         case "l":
@@ -56,32 +57,32 @@ export const  PlayerModel = (props) =>{
             moveCount++
             dir--
             jump =0
+            dirData = getDirection(dir);
           }
           break;
         case "f":
           if (meshRef.current && move<size) {
-            const direction = getDirection(dir);
-            if(direction[1] === "add"){
+            if(dirData[1] === "add"){
               if(size - move >= interval){
                 move +=interval;
-                meshRef.current.position[direction[0]] +=interval;
+                meshRef.current.position[dirData[0]] +=interval;
               }
               else{
                 move += (size - move)
-                meshRef.current.position[direction[0]] += (size - move)
+                meshRef.current.position[dirData[0]] += (size - move)
               }
               
               let sinMove = (Math.sin(((move/size) * Math.PI))) ;
               meshRef.current.position.y = 1.5 + sinMove
             }
-            else if(direction[1] === "sub"){
+            else if(dirData[1] === "sub"){
               if(size - move >= interval){
                 move +=interval;
-                meshRef.current.position[direction[0]] -=interval;
+                meshRef.current.position[dirData[0]] -=interval;
               }
               else{
                 move += (size - move)
-                meshRef.current.position[direction[0]] -= (size - move)
+                meshRef.current.position[dirData[0]] -= (size - move)
               }
               
               let sinMove = (Math.sin(((move/size) * Math.PI))) ;
