@@ -1,5 +1,8 @@
 import React, { useEffect, useRef } from "react";
+import { ItemTypes } from "./Constants";
 import ReactDOM from 'react-dom'
+import { useDrag, DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 import { Canvas, useThree, useFrame } from '@react-three/fiber'
 import "./App.css"
 import { OrbitControls,OrthographicCamera  } from "@react-three/drei";
@@ -8,30 +11,40 @@ import Player from "./components/Player";
 import { Pickup } from "./components/Pickup";
 import { Level } from "./components/Level";
 
-// const CameraController = () => {
-//   const { camera, gl } = useThree();
-//   useEffect(
-//     () => {
-//       const controls = new OrbitControls(camera, gl.domElement);
+const Area = () => {
+  const [{isDragging}, drag] = useDrag(() => ({
+    type: ItemTypes.Foward,
+    collect: monitor => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }))
 
-//       controls.minDistance = 3;
-//       controls.maxDistance = 20;
-//       return () => {
-//         controls.dispose();
-//       };
-//     },
-//     [camera, gl]
-//   );
-//   return null;
-// };
-
-
+  return(
+    <div id="programming-area">
+            Programming Area
+            <div id="parent-blocks-area">
+            <div
+              ref={drag}
+              style={{
+                opacity: isDragging ? 0.5 : 1,
+                fontSize: 25,
+                width:25,
+                height:25,
+                fontWeight: 'bold',
+                cursor: 'move',
+              }}
+            >
+              {ItemTypes.Foward}
+            </div>
+            </div>
+        </div>
+  )
+}
 const  App = () => {
   const camRef = useRef();
   return (
     <div id="canvas-container">
       <Canvas camera={{ position: [10, 10, 0] }}>
-      {/* <CameraController /> */}
         {/* <ambientLight intensity={0.1} />
         <directionalLight color="white" position={[0, 0, 5]} /> */}
         <Level/>
@@ -50,7 +63,10 @@ const  App = () => {
         far={1000}
         position={[-2.5, 5, 2.5]}
       />
-       </Canvas>
+       </Canvas>  
+       <DndProvider backend={HTML5Backend}>
+        <Area/>
+      </DndProvider>     
     </div>
   )
 }

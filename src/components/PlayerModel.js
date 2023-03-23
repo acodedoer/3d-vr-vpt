@@ -30,7 +30,6 @@ export const  PlayerModel = (props) =>{
   }
 
   useFrame((state, delta, xrFrame) => {
-    // if (meshRef.current && meshRef.current.position.z<distance) {
       switch (moves[moveCount]){
         case "r":
           if (meshRef.current && jump<size) {
@@ -94,18 +93,6 @@ export const  PlayerModel = (props) =>{
             moveCount++
           }
       }
-
-
-
-    // if (meshRef.current && meshRef.current.position.z<distance) {
-    //   distance - meshRef.current.position.z>= interval? meshRef.current.position.z +=interval: meshRef.current.position.z += (distance - meshRef.current.position.z)
-    //   let move = (Math.sin(((meshRef.current.position.z%2/size) * Math.PI))) ;
-    //   console.log(meshRef.current.position.z)
-    //   meshRef.current.position.y = 1.5 + move
-    // }
-    // else{
-    //   distance+=size;
-    // }
   })
   const { nodes, materials } = useGLTF("/assets/gltf/character_duck.gltf");
   return (
