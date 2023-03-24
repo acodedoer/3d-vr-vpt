@@ -3,9 +3,10 @@ import { useDrag } from 'react-dnd'
 export const ChildBlock = ({ name, type, isDropped }) => {
     const [{isDragging}, drag] = useDrag(() => ({
         type: type,
+        item: name,
         collect: monitor => ({
         isDragging: !!monitor.isDragging(),
-        }),
+        })
     }))
 
     return (

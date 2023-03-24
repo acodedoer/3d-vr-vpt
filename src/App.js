@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ItemTypes } from "./Constants";
 import { useDrag, useDrop, DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { Canvas, useThree, useFrame } from '@react-three/fiber'
 import "./App.css"
-import { OrbitControls,OrthographicCamera  } from "@react-three/drei";
+import { OrbitControls,OrthographicCamera, useSelect  } from "@react-three/drei";
 import { VRButton, ARButton, XR, Controllers, Hands } from '@react-three/xr'
 import Player from "./components/Player";
 
@@ -13,15 +13,21 @@ import { Level } from "./components/Level";
 import { Blocks } from "./components/Blocks";
 
 const Area = () => {
-  const onDrop = ()=>console.log("Dropped")
+  const [program, setProgram] = useState([]);
+  const onDrop = (i,monitor)=>console.log(JSON.stringify(monitor.getItem()));
   const [{ isOver, canDrop }, drop] = useDrop({
-    accept: ItemTypes.FORWARD,
-    drop: onDrop,
+    accept: [ItemTypes.FORWARD, ItemTypes.LEFT, ItemTypes.RIGHT],
+    drop: (i,monitor)=>{setProgram([...program, monitor.getItemType()]); console.log(program)},
     collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
-    }),
-  })
+    }) 
+    })
+
+  useEffect(()=>{
+    console.log(program) 
+  },[program])
+
   return(
     <div id="programming-area">
             Programming Area
@@ -38,7 +44,7 @@ const  App = () => {
   const camRef = useRef();
   return (
     <div id="canvas-container">
-      <VRButton />
+      {/* <VRButton /> */}
       <Canvas camera={{ position: [10, 10, 0] }}>
       <XR>
       <Controllers />
