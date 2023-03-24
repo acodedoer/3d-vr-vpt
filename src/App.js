@@ -1,13 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { ItemTypes } from "./Constants";
-import ReactDOM from 'react-dom'
-import { useDrag, DndProvider } from 'react-dnd'
+import { useDrag, useDrop, DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { Canvas, useThree, useFrame } from '@react-three/fiber'
 import "./App.css"
 import { OrbitControls,OrthographicCamera  } from "@react-three/drei";
-import { ChildBlock } from "./components/ChildBlock";
-import Tile from './components/Tile'
+import { VRButton, ARButton, XR, Controllers, Hands } from '@react-three/xr'
 import Player from "./components/Player";
 
 import { Pickup } from "./components/Pickup";
@@ -15,9 +13,21 @@ import { Level } from "./components/Level";
 import { Blocks } from "./components/Blocks";
 
 const Area = () => {
+  const onDrop = ()=>console.log("Dropped")
+  const [{ isOver, canDrop }, drop] = useDrop({
+    accept: ItemTypes.FORWARD,
+    drop: onDrop,
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
+  })
   return(
     <div id="programming-area">
             Programming Area
+            <div  ref={drop} id="execution-area">
+
+            </div>
             <div id="blocks-area">
             <Blocks/>
             </div>
@@ -28,7 +38,11 @@ const  App = () => {
   const camRef = useRef();
   return (
     <div id="canvas-container">
+      <VRButton />
       <Canvas camera={{ position: [10, 10, 0] }}>
+      <XR>
+      <Controllers />
+      <Hands />
         {/* <ambientLight intensity={0.1} />
         <directionalLight color="white" position={[0, 0, 5]} /> */}
         <Level/>
@@ -47,6 +61,7 @@ const  App = () => {
         far={1000}
         position={[-2.5, 5, 2.5]}
       />
+      </XR>
        </Canvas>  
        <DndProvider backend={HTML5Backend}>
         <Area/>

@@ -11,6 +11,9 @@
   min-width: 100%;
   min-height: 250px;
   background-color: azure;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #blocks-area{
@@ -22,6 +25,13 @@
   background-color: aquamarine;
   position: absolute;
   bottom: 0px;
+}
+
+#execution-area{
+  max-width: 960px;
+  min-width: 400px;
+  height: 90px;
+  background-color: bisque;
 }
 body{
   margin: 0;
