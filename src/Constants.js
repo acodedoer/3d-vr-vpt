@@ -1,6 +1,6 @@
 export const ItemTypes = {
-    Foward: 'Foward',
-    Left: 'Turn Left',
-    Right: 'Turn Right',
-    Repeat: 'Repeat'
+    FORWARD: 'Foward',
+    LEFT: 'Turn Left',
+    RIGHT: 'Turn Right',
+    REPEAT: 'Repeat'
   }

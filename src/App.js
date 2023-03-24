@@ -6,36 +6,20 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { Canvas, useThree, useFrame } from '@react-three/fiber'
 import "./App.css"
 import { OrbitControls,OrthographicCamera  } from "@react-three/drei";
+import { ChildBlock } from "./components/ChildBlock";
 import Tile from './components/Tile'
 import Player from "./components/Player";
+
 import { Pickup } from "./components/Pickup";
 import { Level } from "./components/Level";
+import { Blocks } from "./components/Blocks";
 
 const Area = () => {
-  const [{isDragging}, drag] = useDrag(() => ({
-    type: ItemTypes.Foward,
-    collect: monitor => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  }))
-
   return(
     <div id="programming-area">
             Programming Area
-            <div id="parent-blocks-area">
-            <div
-              ref={drag}
-              style={{
-                opacity: isDragging ? 0.5 : 1,
-                fontSize: 25,
-                width:25,
-                height:25,
-                fontWeight: 'bold',
-                cursor: 'move',
-              }}
-            >
-              {ItemTypes.Foward}
-            </div>
+            <div id="blocks-area">
+            <Blocks/>
             </div>
         </div>
   )

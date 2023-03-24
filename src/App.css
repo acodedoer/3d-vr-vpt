@@ -13,13 +13,33 @@
   background-color: azure;
 }
 
-#parent-blocks-area{
+#blocks-area{
   height: 100px;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: aquamarine;
   position: absolute;
   bottom: 0px;
 }
 body{
   margin: 0;
+}
+
+.forward, .left, .right{
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+
+.forward{
+  background-color: chocolate;
+}
+
+.left, .right{
+  background-color:blueviolet;
 }
