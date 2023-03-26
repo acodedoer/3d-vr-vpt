@@ -3,7 +3,7 @@ import { PlayerModel } from './PlayerModel'
 const Player = (props) => {
     return(
         <mesh>
-          <PlayerModel position = {props.position}/>
+          <PlayerModel running={props.running} program={[props.program]} position = {props.position}/>
         </mesh>
     )
 }

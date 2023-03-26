@@ -11,7 +11,6 @@ export const SourceBlock = ({ name, type, isDropped, setDragged }) => {
     }))
 
     useEffect(()=>{
-        console.log("Dragging Source")
         isDragging?setDragged(true):setDragged(false)
     },[isDragging,setDragged])
 
