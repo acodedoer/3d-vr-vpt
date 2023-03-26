@@ -11,28 +11,25 @@ import Player from "./components/Player";
 import { Pickup } from "./components/Pickup";
 import { Level } from "./components/Level";
 import { Blocks } from "./components/Blocks";
+import { ChildBlock } from "./components/SourceBlock";
 
 const Area = () => {
   const [program, setProgram] = useState([]);
   const onDrop = (i,monitor)=>console.log(JSON.stringify(monitor.getItem()));
   const [{ isOver, canDrop }, drop] = useDrop({
     accept: [ItemTypes.FORWARD, ItemTypes.LEFT, ItemTypes.RIGHT],
-    drop: (i,monitor)=>{setProgram([...program, monitor.getItemType()]); console.log(program)},
+    drop: (i,monitor)=>{setProgram([...program, {name:monitor.getItemType(),type:monitor.getItemType()+"Code"}])},
     collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
     }) 
     })
 
-  useEffect(()=>{
-    console.log(program) 
-  },[program])
-
   return(
     <div id="programming-area">
             Programming Area
             <div  ref={drop} id="execution-area">
-
+              <Blocks program={true} blocks={program}/>
             </div>
             <div id="blocks-area">
             <Blocks/>

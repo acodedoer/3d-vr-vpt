@@ -1,6 +1,10 @@
 export const ItemTypes = {
-    FORWARD: 'Foward',
+    FORWARD: 'Forward',
     LEFT: 'Left',
     RIGHT: 'Right',
-    REPEAT: 'Repeat'
+    REPEAT: 'Repeat',
+    FORWARDCODE: 'ForwardCode',
+    LEFTCODE: 'LeftCode',
+    RIGHTCODE: 'RightCode',
+    REPEATCODE: 'RepeatCode'
   }
