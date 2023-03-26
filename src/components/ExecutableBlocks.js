@@ -23,6 +23,9 @@ export const ExecutableBlocks = (props) =>{
             isDragged={draggedIndex === index}
           />
         ))}
+        <div ref={props.refData} style={{width:5, backgroundColor:"red"}}>
+
+        </div>
         </>
       )
 }

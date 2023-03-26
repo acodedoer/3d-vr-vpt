@@ -27,19 +27,25 @@ const Area = () => {
     })
 
   const rearrange = (block, position) =>{
-    console.log("move ",block, " to ", position)
-    const temp = program[block];
-    program.splice(block, 1)
-    program.splice(position, 0, temp)
+    console.log(block)
+    if(Number.isFinite(block)){
+      const temp = program[block];
+      program.splice(block, 1)
+      program.splice(position, 0, temp)
+    }
+    else{
+      program.splice(position, 0, {name:block.replace("Code", ""),type:block})
+    }
     setProgram(program)
   }
 
+  useEffect(()=>console.log(program),[program])
   const [busy, setBusy] = useState(false);
   return(
     <div id="programming-area">
             Programming Area
-            <div  ref={drop} id="execution-area">
-              <ExecutableBlocks rearrange={rearrange} busy={busy} blocks={program}/>
+            <div id="execution-area">
+              <ExecutableBlocks refData ={drop} rearrange={rearrange} busy={busy} blocks={program}/>
             </div>
             <div id="blocks-area">
             <SourceBlocks setBusy={setBusy}/>
