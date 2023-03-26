@@ -20,21 +20,43 @@ export const ExecutableBlock = ({ name, type, isDropped, setDragged, isDragged,i
           canDrop: monitor.canDrop(),
         }) 
     })
-
+    const isActive = isOver && canDrop
     useEffect(()=>{
         isDragging?setDragged(index):setDragged(null)
     },[isDragging,setDragged])
 
     return (
+        !isActive?
         <div  
         ref={!check?drag:isDragged?drag:drop}
         className={name.toLowerCase()}
         style={{
+          paddingLeft:isActive?"80px":"",
           opacity: isDragging ? 0.5 : 1,
           fontWeight: 'bold',
           cursor: 'move',
         }}>
         {isDropped ? <s>{name}</s> : name}
+        </div>:
+        <div ref={drop} style={{
+            display:"flex"
+        }}>
+            <div style={{
+                minWidth:"80px",
+                backgroundColor:"white",
+                opacity:0.5,
+                margin:"5px"
+            }}>
+                
+            </div>
+            <div className={name.toLowerCase()} style={{
+            opacity: isDragging ? 0.5 : 1,
+            fontWeight: 'bold',
+            cursor: 'move',
+            }}>
+            {isDropped ? <s>{name}</s> : name}
+            </div>
+
         </div>
     )
 }
