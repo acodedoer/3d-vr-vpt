@@ -10,7 +10,8 @@ import Player from "./components/Player";
 
 import { Pickup } from "./components/Pickup";
 import { Level } from "./components/Level";
-import { Blocks } from "./components/Blocks";
+import { ExecutableBlocks } from "./components/ExecutableBlocks";
+import { SourceBlocks } from "./components/SourceBlocks";
 import { ChildBlock } from "./components/SourceBlock";
 
 const Area = () => {
@@ -25,14 +26,23 @@ const Area = () => {
     }) 
     })
 
+  const rearrange = (block, position) =>{
+    console.log("move ",block, " to ", position)
+    const temp = program[block];
+    program.splice(block, 1)
+    program.splice(position, 0, temp)
+    setProgram(program)
+  }
+
+  const [busy, setBusy] = useState(false);
   return(
     <div id="programming-area">
             Programming Area
             <div  ref={drop} id="execution-area">
-              <Blocks program={true} blocks={program}/>
+              <ExecutableBlocks rearrange={rearrange} busy={busy} blocks={program}/>
             </div>
             <div id="blocks-area">
-            <Blocks/>
+            <SourceBlocks setBusy={setBusy}/>
             </div>
         </div>
   )
