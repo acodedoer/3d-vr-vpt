@@ -33,25 +33,27 @@
   height: 90px;
   background-color: bisque;
   display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-left: 8px;
+  max-width: 800px;
+  overflow: auto;
 
 }
 body{
   margin: 0;
 }
 
-.forward, .left, .right,.forwardcode, .leftcode, .rightcode{
-  width: 80px;
-  height: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 5px;
+
+.source-block{
+  max-width: 80px;
+  max-height: 80px;
+  margin: 8px;
 }
 
-.forward,.forwardcode{
-  background-color: chocolate;
-}
-
-.left, .right, .leftcode, .rightcode{
-  background-color:blueviolet;
+.executable-block{
+  max-width: 80px;
+  max-height: 72.8125px;
+  min-width: 80px;
+  min-height: 72.8125px;
 }

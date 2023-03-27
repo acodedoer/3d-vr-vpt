@@ -15,15 +15,13 @@ export const SourceBlock = ({ name, type, isDropped, setDragged }) => {
     },[isDragging,setDragged])
 
     return (
-        <div  
+        <img src={`assets/images/${name}.png`}  
         ref={drag}
-        className={name.toLowerCase()}
+        className="source-block"
         style={{
           opacity: isDragging ? 0.5 : 1,
           fontWeight: 'bold',
           cursor: 'move',
-        }}>
-        {isDropped ? <s>{name}</s> : name}
-        </div>
+        }}/>
     )
 }

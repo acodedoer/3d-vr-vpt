@@ -10,6 +10,7 @@ export const ExecutableBlocks = (props) =>{
     useEffect(()=>setBlocks(props.blocks),[props.blocks])
       return(
         <>
+        <img className={"executable-block"} src={`assets/images/start.png`}/>
         { blocks&&blocks.map(({ name, type }, index) => (
           <ExecutableBlock
             name={name}
@@ -23,8 +24,9 @@ export const ExecutableBlocks = (props) =>{
             isDragged={draggedIndex === index}
           />
         ))}
-        <div ref={props.refData} style={{width:5, backgroundColor:"red"}}>
-
+        <div ref={props.refData} className={"executable-block"} style={{
+            transform: `translate(-${(blocks&&blocks.length)*7}px, 0)`,
+        }}>
         </div>
         </>
       )

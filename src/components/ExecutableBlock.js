@@ -27,19 +27,18 @@ export const ExecutableBlock = ({ name, type, isDropped, setDragged, isDragged,i
 
     return (
         !isActive?
-        <div  
+        <img src={`assets/images/${name}.png`}
         ref={!check?drag:isDragged?drag:drop}
-        className={name.toLowerCase()}
+        className={"executable-block"}
         style={{
-          paddingLeft:isActive?"80px":"",
+          transform: `translate(-${(index+1)*7}px, 0)`,
           opacity: isDragging ? 0.5 : 1,
           fontWeight: 'bold',
           cursor: 'move',
-        }}>
-        {isDropped ? <s>{name}</s> : name}
-        </div>:
+        }}/>:
         <div ref={drop} style={{
-            display:"flex"
+            display:"flex",
+            transform: `translate(-${(index+1)*7}px, 0)`,
         }}>
             <div style={{
                 minWidth:"80px",
@@ -49,14 +48,7 @@ export const ExecutableBlock = ({ name, type, isDropped, setDragged, isDragged,i
             }}>
                 
             </div>
-            <div className={name.toLowerCase()} style={{
-            opacity: isDragging ? 0.5 : 1,
-            fontWeight: 'bold',
-            cursor: 'move',
-            }}>
-            {isDropped ? <s>{name}</s> : name}
-            </div>
-
+            <img className={"executable-block"} src={`assets/images/${name}.png`}/>
         </div>
     )
 }
