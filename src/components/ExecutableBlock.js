@@ -40,15 +40,8 @@ export const ExecutableBlock = ({ name, type, isDropped, setDragged, isDragged,i
             display:"flex",
             transform: `translate(-${(index+1)*7}px, 0)`,
         }}>
-            <div style={{
-                minWidth:"80px",
-                backgroundColor:"white",
-                opacity:0.5,
-                margin:"5px"
-            }}>
-                
-            </div>
-            <img className={"executable-block"} src={`assets/images/${name}.png`}/>
+       <div className={"executable-block"}></div>
+            <img className={"executable-block"} src={`assets/images/${name}.png`} />
         </div>
     )
 }

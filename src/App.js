@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Box } from '@react-three/drei'
 import { ItemTypes } from "./Constants";
 import { useDrag, useDrop, DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { Canvas, useThree, useFrame } from '@react-three/fiber'
 import "./App.css"
 import { OrbitControls,OrthographicCamera, useSelect  } from "@react-three/drei";
-import { VRButton, ARButton, XR, Controllers, Hands } from '@react-three/xr'
+import { VRButton, ARButton,useHitTest, XR, Controllers, Hands } from '@react-three/xr'
 import Player from "./components/Player";
 
 import { Pickup } from "./components/Pickup";
@@ -66,6 +67,19 @@ const Area = (props) => {
         </div>
   )
 }
+
+export function HitTestExample(props) {
+  const boxRef = React.useRef(null)
+
+  useHitTest((hitMatrix) => {
+    if (boxRef.current) {
+      hitMatrix.decompose(boxRef.current.position, boxRef.current.quaternion, boxRef.current.scale)
+    }
+  })
+
+  return <Box ref={boxRef} {...props} args={[0.1, 0.1, 0.1]} />
+}
+
 const  App = () => {
   const camRef = useRef();
   const [programCode, setProgramCode] = useState([]);
@@ -78,13 +92,13 @@ const  App = () => {
 
   return (
     <div id="canvas-container">
-      {/* <VRButton /> */}
+      <ARButton />
       <Canvas camera={{zoom:10, position:[-2.5,100,2.5] }}>
       <XR>
       <Controllers />
       <Hands />
-        {/* <ambientLight intensity={0.1} />
-        <directionalLight color="white" position={[0, 0, 5]} /> */}
+        <ambientLight intensity={0.1} />
+        <directionalLight color="white" position={[0, 0, 5]} />
         <Level/>
         <Player running={running} camRef ={camRef} program={programCode} position={initialPos}/>
         <Pickup position={[4,2.5,4]} scale={[0.5,0.5,0.5]}/>
@@ -101,6 +115,7 @@ const  App = () => {
         far={1000}
         position={[-2.5, 5, 2.5]}
       /> */}
+
       </XR>
        </Canvas>  
        <DndProvider backend={HTML5Backend}>

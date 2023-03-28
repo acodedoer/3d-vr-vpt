@@ -14,14 +14,14 @@ export const TileModel = (props) => {
         receiveShadow
         geometry={nodes.Cube1615.geometry}
       >
-        <meshBasicMaterial color={'#45b39d'}/>
+        <meshBasicMaterial color={props.index%2?'#45b39d':"#3fa28e"}/>
       </mesh>
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.Cube1615_1.geometry}
       >
-        <meshBasicMaterial color={'#725038'}/>
+        <meshBasicMaterial color={props.index%2?'#725038':"#60432f"}/>
       </mesh>
     </group>
   );

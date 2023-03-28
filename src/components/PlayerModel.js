@@ -30,6 +30,7 @@ export const  PlayerModel = (props) =>{
       meshRef.current.position.x=0;
       meshRef.current.position.y=1.5;
       meshRef.current.position.z=-4.5;
+      meshRef.current.rotation.y=0;
     }
   },[props.running])
 

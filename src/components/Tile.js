@@ -3,7 +3,7 @@ import { TileModel } from './TileModel'
 const Tile = (props) => {
     return(
         <mesh>
-          <TileModel position={props.position}/>
+          <TileModel index={props.index} position={props.position}/>
         </mesh>
     )
 }
