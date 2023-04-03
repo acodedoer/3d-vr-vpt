@@ -94,7 +94,9 @@ export const  PlayerModel = (props) =>{
               }
               else{
                 move += (size - move)
-                meshRef.current.position[dirData[0]] += move
+                // meshRef.current.position[dirData[0]] -=move-interval            
+                // meshRef.current.position[dirData[0]] +=size
+                meshRef.current.position[dirData[0]]=Math.ceil(meshRef.current.position[dirData[0]]);
               }
               
               let sinMove = (Math.sin(((move/size) * Math.PI))) ;
@@ -107,7 +109,9 @@ export const  PlayerModel = (props) =>{
               }
               else{
                 move += (size - move)
-                meshRef.current.position[dirData[0]] -= (size - move)
+                // meshRef.current.position[dirData[0]] +=move-interval  
+                // meshRef.current.position[dirData[0]] -= size
+                meshRef.current.position[dirData[0]]=Math.floor(meshRef.current.position[dirData[0]]);
               }
               
               let sinMove = (Math.sin(((move/size) * Math.PI))) ;
@@ -117,8 +121,11 @@ export const  PlayerModel = (props) =>{
           else{
             move = 0;
             moveCount++
-            console.log((meshRef.current.position.x),":",(meshRef.current.position.z))
+            console.log(meshRef.current.position.x/2,":",(meshRef.current.position.z/2))
           }
+          break
+      default:
+          break
       }
     }
   })
