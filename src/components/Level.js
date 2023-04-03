@@ -7,7 +7,7 @@ export const Level = () => {
     return(
        tiles.map((row, i)=>
             row.map((tile, j)=>{
-                return tile?<Tile index={i*tiles[0].length + j} position={[(i-2)*2, 0, (j-2)*2]}/>:null
+                return tile?<Tile data={[i-2,j-2]} index={i*tiles[0].length + j} position={[(i-2)*2, 0, (j-2)*2]}/>:null
             }
             )
         )
