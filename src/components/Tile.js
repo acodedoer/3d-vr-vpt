@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { LEVELS } from "../Levels";
 
 const Tile = (props) => {
-  const [visible, setVisible] = useState(props.visible);
+  const [visible, setVisible] = useState(true);
   const {currentPlayerPosition,level} = useSnapshot(state);
   const [initialPlayerPosition] = useState(LEVELS[level]["player"]);
 
@@ -14,18 +14,25 @@ const Tile = (props) => {
     setVisible(false);
     incrementScore();
   }
-
-  useEffect(()=>{
-    setVisible(props.visible)
-  }, [props.visible])
   
   useEffect(()=>{
     if(visible){
-      (initialPlayerPosition[0]/2===props.data[0] && initialPlayerPosition[2]/2===props.data[1])?setVisible(false):
-      (currentPlayerPosition[0]/2===props.data[0] && currentPlayerPosition[1]/2===props.data[1]) ?
-      pickPickup():setVisible(true);
+      if (currentPlayerPosition[0]/2===props.data[0] && currentPlayerPosition[1]/2===props.data[1])
+      {
+        console.log("Picked up gem")
+        pickPickup()
+      }
     }
   },[currentPlayerPosition,initialPlayerPosition])
+
+  useEffect(()=>{
+    setVisible(true)
+    if(initialPlayerPosition[0]/2===props.data[0] && initialPlayerPosition[2]/2===props.data[1])
+    {
+      console.log("Initial no gem")
+      setVisible(false) 
+    }
+  },[level])
 
     return(
         <mesh>

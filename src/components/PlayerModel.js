@@ -44,7 +44,6 @@ export const  PlayerModel = (props) =>{
   }, [level])
 
   useEffect(()=>{
-    console.log("reposition")
     if(!executing){
       meshRef.current.position.x=initialPos[0];
       meshRef.current.position.y=initialPos[1];

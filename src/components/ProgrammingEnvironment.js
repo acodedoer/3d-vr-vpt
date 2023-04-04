@@ -8,7 +8,7 @@ import {useSnapshot} from "valtio";
 import { setCode, setExecuting, state } from "../State";
 
 export const ProgrammingEnvironment = (props) => {
-    const {code,executing} = useSnapshot(state);
+    const {code,executing,level} = useSnapshot(state);
     const [running,setRunning] = useState(false);
     const [program, setProgram] = useState([]);
     const [{ isOver, canDrop }, drop] = useDrop({
@@ -20,6 +20,11 @@ export const ProgrammingEnvironment = (props) => {
       }) 
       })
   
+      useEffect(()=>{
+        setProgram([]);
+        document.getElementById("playButton").innerText="Play"
+        setRunning(false);
+      },[level])
       
     const rearrange = (block, position) =>{
       if(Number.isFinite(block)){
