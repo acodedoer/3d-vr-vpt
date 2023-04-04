@@ -1,18 +1,31 @@
 import { PickupModel } from './PickupModel';
 import { TileModel } from './TileModel'
-import { state } from "../State";
+import { state,incrementScore } from "../State";
 import {useSnapshot} from "valtio";
 import { useEffect, useState } from 'react';
+import { LEVELS } from "../Levels";
 
 const Tile = (props) => {
-  const [visible, setVisible] = useState(true);
-  const {playerPos} = useSnapshot(state);
+  const [visible, setVisible] = useState(props.visible);
+  const {currentPlayerPosition,level} = useSnapshot(state);
+  const [initialPlayerPosition] = useState(LEVELS[level]["player"]);
+
+  const pickPickup = () => {
+    setVisible(false);
+    incrementScore();
+  }
 
   useEffect(()=>{
+    setVisible(props.visible)
+  }, [props.visible])
+  
+  useEffect(()=>{
     if(visible){
-      playerPos[0]===props.data[0] && playerPos[1]===props.data[1]?setVisible(false):setVisible(true);
+      (initialPlayerPosition[0]/2===props.data[0] && initialPlayerPosition[2]/2===props.data[1])?setVisible(false):
+      (currentPlayerPosition[0]/2===props.data[0] && currentPlayerPosition[1]/2===props.data[1]) ?
+      pickPickup():setVisible(true);
     }
-  },[playerPos])
+  },[currentPlayerPosition,initialPlayerPosition])
 
     return(
         <mesh>
