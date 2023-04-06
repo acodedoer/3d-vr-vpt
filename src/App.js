@@ -7,19 +7,22 @@ import { OrbitControls} from "@react-three/drei";
 import { VRButton, XR, Controllers, Hands } from '@react-three/xr'
 import { ExecutionEnvironment } from "./components/ExecutionEnvironment";
 import { ProgrammingEnvironment } from "./components/ProgrammingEnvironment";
+import { VRProgrammingEnvironment } from "./components/VRProgrammingEnvironment";
 
 const  App = () => {
   const camRef = useRef();
   
   return (
     <div id="canvas-container">
-      <Canvas camera={{zoom:10, position:[-2.5,100,2.5] }}>
+        <VRButton/>
+      <Canvas camera={{zoom:10, position:[-2.5,100,2.5] }} style={{ background: "#98eae0" }}>
         <XR>
         <Controllers />
         <Hands />
         <ambientLight intensity={0.1} />
         <directionalLight color="white" position={[0, 0, 5]} />
         <ExecutionEnvironment camRef={camRef}/>
+        <VRProgrammingEnvironment/>
         <OrbitControls />
         </XR>
       </Canvas>  

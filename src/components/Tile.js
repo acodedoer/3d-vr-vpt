@@ -27,11 +27,11 @@ const Tile = (props) => {
 
   useEffect(()=>{
     setVisible(true)
-    if(initialPlayerPosition[0]/2===props.data[0] && initialPlayerPosition[2]/2===props.data[1])
-    {
-      console.log("Initial no gem")
-      setVisible(false) 
-    }
+      if(initialPlayerPosition[0]/2===props.data[0] && initialPlayerPosition[2]/2===props.data[1])
+      {
+        console.log("Initial no gem")
+        setVisible(false) 
+      }
   },[level])
 
     return(

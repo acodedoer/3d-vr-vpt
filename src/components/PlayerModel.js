@@ -143,7 +143,7 @@ export const  PlayerModel = (props) =>{
   })
   const { nodes, materials } = useGLTF("/assets/gltf/character_duck.gltf");
   return (
-    <group {...props} ref={meshRef} dispose={null}>
+    <group {...props} ref={meshRef} scale={[1.2,1.2, 1.2]} dispose={null}>
       <mesh
         castShadow
         receiveShadow
