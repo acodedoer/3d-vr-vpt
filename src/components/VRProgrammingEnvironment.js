@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import '@react-three/fiber'
 import { Text } from '@react-three/drei'
 import { Interactive, useInteraction} from '@react-three/xr'
@@ -70,12 +70,32 @@ function Box({scale, rest, size, position, color, children}) {
   }
 
 
-  const ProgrammingBoard = () => {
+  const ProgrammingBoard = (props) => {
+    const[dimension, setDimension] = useState({width:5, left:-2.5})
+
+    useEffect(()=>{
+      let newWidth = 1.4*props.code.length +1.6;
+      setDimension({width:newWidth,left:-newWidth/2})
+    },[props.code])
+    
     return(
-        <mesh scale={[5,1.5,0.1]} position={[0,5,-5]}>
+      <>
+        <mesh scale={[dimension.width,1.5,0.1]} position={[0,5,-5]}>
             <boxGeometry/>
             <meshStandardMaterial color={"skyblue"} />
         </mesh>
+        <>
+          {
+            props.code && props.code.map((block,i)=>(
+              <CodeBlock key={i} scale={[1.2,1.2,0.1]} position={[dimension.left+0.2+((i+1)*0.6 + (i*0.6)+(i*0.2)),5, -4.95]} color={block.color}/>
+            ))
+          }
+          <mesh scale={[1.2,1.2,0.1]} position={[dimension.width/2 -0.8,5,-4.95]} >
+              <boxGeometry/>
+              <meshStandardMaterial color={"white"} opacity={0} transparent />
+          </mesh>
+        </>
+      </>
     )
   }
 export const VRProgrammingEnvironment = (props) => {
@@ -87,7 +107,7 @@ export const VRProgrammingEnvironment = (props) => {
     }
 return(
     <>
-        <ProgrammingBoard/>
+        <ProgrammingBoard code={[{text:"Forward", color:"blue"},{text:"Forward", color:"blue"},{text:"Forward", color:"blue"},{text:"Turn", color:"orange"},{text:"Forward", color:"blue"},{text:"Forward", color:"blue"},{text:"Repeat", color:"yellow"}]}/>
         {/* <SourceBoard/> */}
         <SourceBoardBlocks/>
         {/* <Interactive onSelect={onSelect} onHover={() => setHover(true)} onBlur={() => setHover(false)}>
