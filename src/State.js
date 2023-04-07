@@ -4,7 +4,8 @@ export const state = proxy({
     score:0,
     code: [], 
     executing: false,
-    currentPlayerPosition:[null]
+    currentPlayerPosition:[null],
+    placeholderIndex: undefined,
 })
 
 export const setCode = ( blocks ) => {
@@ -29,4 +30,8 @@ export const resetScore = () => {
 
 export const nextLevel = () => {
     state.level += 1;
+}
+
+export const setPlaceholderIndex = (value) => {
+    state.placeholderIndex = value;
 }
