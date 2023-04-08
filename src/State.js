@@ -6,6 +6,7 @@ export const state = proxy({
     executing: false,
     currentPlayerPosition:[null],
     placeholderIndex: undefined,
+    selected:undefined
 })
 
 export const setCode = ( blocks ) => {
@@ -34,4 +35,8 @@ export const nextLevel = () => {
 
 export const setPlaceholderIndex = (value) => {
     state.placeholderIndex = value;
+}
+
+export const setSelectedBlock = (value) => {
+    state.selected = value;
 }

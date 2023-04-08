@@ -39,7 +39,7 @@ function Box({scale, rest, size, position, color, children}) {
       blockRef.current.position.x = props.position[0];
       blockRef.current.position.y = props.position[1];
       if(placeholderIndex!==undefined){
-        props.setCode({text:"Forward", color:"red"},placeholderIndex)
+        props.setCode({text:props.text, color:props.color},placeholderIndex)
       }
     })
 
@@ -53,7 +53,19 @@ function Box({scale, rest, size, position, color, children}) {
       <Interactive onBlur={() => null}>
         <mesh ref={props.busy && !selected?null:blockRef} scale = {props.scale} position={[props.position[0],props.position[1],props.busy && !selected? props.position[2]-0.05:props.position[2]]}>
             <boxGeometry/>
-            <meshStandardMaterial color={props.color} opacity={props.busy && !selected?0.7:1} transparent />
+            <meshStandardMaterial color={props.color}/>
+            <mesh ref={blockRef} scale = {[0.17,0.3,1]} position={[-.54,0.35,0]}>
+              <boxGeometry/>
+              <meshStandardMaterial color={props.color}/>
+            </mesh>
+            <mesh ref={blockRef} scale = {[0.17,0.3,1]} position={[-.54,-0.35,0]}>
+              <boxGeometry/>
+              <meshStandardMaterial color={props.color}/>
+            </mesh>
+            <mesh ref={blockRef} scale = {[0.17,0.38,1]} position={[.54,0,0]}>
+              <boxGeometry/>
+              <meshStandardMaterial color={props.color}/>
+            </mesh>
         </mesh>
         </Interactive>
     )
@@ -66,7 +78,7 @@ function Box({scale, rest, size, position, color, children}) {
 
     useFrame(()=>{
       props.selectedBlock && collided && console.log("Distance from ",props.color,":",Math.pow(props.selectedBlock.current.position.x - blockRef.current.position.x, 2) + Math.pow(props.selectedBlock.current.position.y - blockRef.current.position.y, 2))
-      if(props.color!=="pink"){
+      if(props.color!=="white"){
         if(props.busy &&props.selectedBlock && !collided){
           if(Math.pow(props.selectedBlock.current.position.x - blockRef.current.position.x, 2) + Math.pow(props.selectedBlock.current.position.y - blockRef.current.position.y, 2) <= props.scale[0]/2 * props.scale[0]/2 ){
             setCollided(true);
@@ -81,8 +93,8 @@ function Box({scale, rest, size, position, color, children}) {
     })
 
     useEffect(()=>{
-      if(collided && !placeholder && props.color!=="pink"){
-        !placeholder && props.setCode({text:"Forward", color:"pink"},props.index+1)
+      if(collided && !placeholder && props.color!=="white"){
+        !placeholder && props.setCode({text:"Forward", color:"white"},props.index+1)
         placeholderSet(true);
         setPlaceholderIndex(props.index+1)
       }
@@ -125,6 +137,18 @@ function Box({scale, rest, size, position, color, children}) {
         <mesh ref={blockRef} scale = {props.scale} position={[props.position[0],props.position[1],props.position[2]]}>
             <boxGeometry/>
             <meshStandardMaterial color={props.color}/>
+            <mesh ref={blockRef} scale = {[0.17,0.3,1]} position={[-.54,0.35,0]}>
+              <boxGeometry/>
+              <meshStandardMaterial color={props.color}/>
+            </mesh>
+            <mesh ref={blockRef} scale = {[0.17,0.3,1]} position={[-.54,-0.35,0]}>
+              <boxGeometry/>
+              <meshStandardMaterial color={props.color}/>
+            </mesh>
+            <mesh ref={blockRef} scale = {[0.17,0.38,1]} position={[.54,0,0]}>
+              <boxGeometry/>
+              <meshStandardMaterial color={props.color}/>
+            </mesh>
         </mesh>
         </Interactive>
     )
@@ -146,7 +170,7 @@ function Box({scale, rest, size, position, color, children}) {
         <>
           {
             BLOCKS.map((block,i)=> (
-              <CodeBlock key={i} busy={busy} setCode={props.setCode} setSelectedRef={props.setSelectedRef} setTopBusy= {props.setTopBusy} setBusy={setBusy} scale={[1.2,1.2,0.1]} position={[i-1===0?0:(i-1)*1.2 +(0.2/(i-1)), 3, -4.95]} color={block.color}/>))
+              <CodeBlock key={i} busy={busy} setCode={props.setCode} setSelectedRef={props.setSelectedRef} setTopBusy= {props.setTopBusy} setBusy={setBusy} scale={[1.2,1.2,0.1]} position={[i-1===0?0:(i-1)*1.2 +(0.2/(i-1)), 3, -4.95]} color={block.color} text={block.text}/>))
           }
         </>
     )
@@ -169,7 +193,7 @@ function Box({scale, rest, size, position, color, children}) {
         <> 
           {
             props.code && props.code.map((block,i)=>(
-              <ExecutableCodeBlock code={props.code} setCode={props.setCode} selectedBlock={props.selectedBlock} busy={props.topBusy} key={i} index={i} scale={[1.2,1.2,0.1]} position={[dimension.left+0.2+((i+1)*0.6 + (i*0.6)+(i*0.2)),5, -4.95]} color={block.color}/>
+              <ExecutableCodeBlock code={props.code} setCode={props.setCode} selectedBlock={props.selectedBlock} busy={props.topBusy} key={i} index={i} scale={[1.2,1.2,0.1]} position={[dimension.left+0.2+((i+1)*0.6 + (i*0.6)+(i*0.16)),5, -4.95]} color={block.color}/>
             ))
           }
           <mesh scale={[1.2,1.2,0.1]} position={[dimension.width/2 -0.8,5,-4.95]} >
@@ -190,15 +214,15 @@ export const VRProgrammingEnvironment = (props) => {
       const temp = JSON.parse(JSON.stringify(code));
       if(update===null){
         code.forEach((block,i)=>{
-          if(block.color==="pink") {
+          if(block.color==="white") {
             temp.splice(i,1)
           }}
         )
       }
-      else if(update.color==="pink"){
+      else if(update.color==="white"){
         let add = true;
         code.forEach(block=>{
-          if(block.color==="pink") add = false}
+          if(block.color==="white") add = false}
         )
         if(add) temp.splice(index, 0, update)
       }
