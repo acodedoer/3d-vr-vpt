@@ -68,12 +68,12 @@ function Box({scale, rest, size, position, color, children}) {
       props.selectedBlock && collided && console.log("Distance from ",props.color,":",Math.pow(props.selectedBlock.current.position.x - blockRef.current.position.x, 2) + Math.pow(props.selectedBlock.current.position.y - blockRef.current.position.y, 2))
       if(props.color!=="pink"){
         if(props.busy &&props.selectedBlock && !collided){
-          if(Math.pow(props.selectedBlock.current.position.x - blockRef.current.position.x, 2) + Math.pow(props.selectedBlock.current.position.y - blockRef.current.position.y, 2) <= 0.6*0.6){
+          if(Math.pow(props.selectedBlock.current.position.x - blockRef.current.position.x, 2) + Math.pow(props.selectedBlock.current.position.y - blockRef.current.position.y, 2) <= props.scale[0]/2 * props.scale[0]/2 ){
             setCollided(true);
           }
         }
         else if (collided){
-          if(!props.selectedBlock || Math.pow(props.selectedBlock.current.position.x - (blockRef.current.position.x+0.6), 2) + Math.pow(props.selectedBlock.current.position.y - blockRef.current.position.y, 2) > 1.0*1.0){
+          if(!props.selectedBlock || Math.pow(props.selectedBlock.current.position.x - (blockRef.current.position.x+0.6), 2) + Math.pow(props.selectedBlock.current.position.y - blockRef.current.position.y, 2) > (props.scale[0]*0.84) *(props.scale[0]*0.84)){
             setCollided(false);
           }
         }
