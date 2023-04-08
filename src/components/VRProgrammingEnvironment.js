@@ -40,7 +40,6 @@ function Box({scale, rest, size, position, color, children}) {
       blockRef.current.position.y = props.position[1];
       if(placeholderIndex!==undefined){
         props.setCode({text:"Forward", color:"red"},placeholderIndex)
-        console.log("Insert in ",placeholderIndex)
       }
     })
 
@@ -66,26 +65,29 @@ function Box({scale, rest, size, position, color, children}) {
     const [placeholder, placeholderSet] = useState(false);
 
     useFrame(()=>{
-      if(props.busy &&props.selectedBlock && !collided){
-        if(Math.pow(props.selectedBlock.current.position.x - blockRef.current.position.x, 2) + Math.pow(props.selectedBlock.current.position.y - blockRef.current.position.y, 2) <= 0.6*0.6){
-          setCollided(true);
+      props.selectedBlock && collided && console.log("Distance from ",props.color,":",Math.pow(props.selectedBlock.current.position.x - blockRef.current.position.x, 2) + Math.pow(props.selectedBlock.current.position.y - blockRef.current.position.y, 2))
+      if(props.color!=="pink"){
+        if(props.busy &&props.selectedBlock && !collided){
+          if(Math.pow(props.selectedBlock.current.position.x - blockRef.current.position.x, 2) + Math.pow(props.selectedBlock.current.position.y - blockRef.current.position.y, 2) <= 0.6*0.6){
+            setCollided(true);
+          }
         }
-      }
-      else if (collided){
-        if(Math.pow(props.selectedBlock.current.position.x - blockRef.current.position.x, 2) + Math.pow(props.selectedBlock.current.position.y - blockRef.current.position.y, 2) > 0.9*0.9){
-          setCollided(false);
+        else if (collided){
+          if(!props.selectedBlock || Math.pow(props.selectedBlock.current.position.x - (blockRef.current.position.x+0.6), 2) + Math.pow(props.selectedBlock.current.position.y - blockRef.current.position.y, 2) > 1.0*1.0){
+            setCollided(false);
+          }
         }
       }
     })
 
     useEffect(()=>{
       if(collided && !placeholder && props.color!=="pink"){
-        !placeholder && props.setCode({text:"Forward", color:"pink"},props.index)
+        !placeholder && props.setCode({text:"Forward", color:"pink"},props.index+1)
         placeholderSet(true);
-        setPlaceholderIndex(props.index)
+        setPlaceholderIndex(props.index+1)
       }
       else if(!collided && placeholder){
-        props.setCode(null,props.index)
+        props.setCode(null,props.index+1)
         placeholderSet(false)
         setPlaceholderIndex(undefined)
       }
@@ -186,9 +188,7 @@ export const VRProgrammingEnvironment = (props) => {
     const[selectedRef, setSelectedRef] = useState(null);
     const updateCode = (update, index) =>{
       const temp = JSON.parse(JSON.stringify(code));
-      console.log("To update: ",update)
       if(update===null){
-        console.log("Added 1")
         code.forEach((block,i)=>{
           if(block.color==="pink") {
             temp.splice(i,1)
@@ -196,7 +196,6 @@ export const VRProgrammingEnvironment = (props) => {
         )
       }
       else if(update.color==="pink"){
-        console.log("Added 2")
         let add = true;
         code.forEach(block=>{
           if(block.color==="pink") add = false}
@@ -204,7 +203,6 @@ export const VRProgrammingEnvironment = (props) => {
         if(add) temp.splice(index, 0, update)
       }
       else{
-        console.log("Added 3")
         temp.splice(index, 0, update)
       }
       setCode();
