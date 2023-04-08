@@ -6,8 +6,8 @@ import "./App.css"
 import { OrbitControls} from "@react-three/drei";
 import { VRButton, XR, Controllers, Hands } from '@react-three/xr'
 import { ExecutionEnvironment } from "./components/ExecutionEnvironment";
-import { ProgrammingEnvironment } from "./components/ProgrammingEnvironment";
-import { VRProgrammingEnvironment } from "./components/VRProgrammingEnvironment";
+import { ProgrammingEnvironment as ProgrammingEnvironment2D } from "./components/2d/ProgrammingEnvironment";
+import { ProgrammingEnvironment as ProgrammingEnvironmentVR } from "./components/vr/ProgrammingEnvironment";
 
 const  App = () => {
   const camRef = useRef();
@@ -21,13 +21,13 @@ const  App = () => {
         <Hands />
         <ambientLight intensity={0.1} />
         <directionalLight color="white" position={[0, 0, 5]} />
-        {/* <ExecutionEnvironment camRef={camRef}/> */}
-        <VRProgrammingEnvironment/>
+        <ExecutionEnvironment camRef={camRef}/>
+        <ProgrammingEnvironmentVR/>
         <OrbitControls />
         </XR>
       </Canvas>  
       <DndProvider backend={HTML5Backend}>
-        <ProgrammingEnvironment/>
+        <ProgrammingEnvironment2D/>
       </DndProvider>     
     </div>
   )

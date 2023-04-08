@@ -1,5 +1,5 @@
 import { SourceBlock } from "./SourceBlock"
-import { ItemTypes } from "../Constants"
+import { ItemTypes } from "../../Constants"
 import {  useState } from "react"
 
 export const SourceBlocks = (props) =>{

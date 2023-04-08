@@ -1,6 +1,6 @@
 import { SourceBlock } from "./SourceBlock"
 import { ExecutableBlock } from "./ExecutableBlock"
-import { ItemTypes } from "../Constants"
+import { ItemTypes } from "../../Constants"
 import { useEffect, useState } from "react"
 
 export const ExecutableBlocks = (props) =>{

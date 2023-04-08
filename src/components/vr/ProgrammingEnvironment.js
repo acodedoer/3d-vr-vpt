@@ -3,8 +3,8 @@ import '@react-three/fiber'
 import { Cone, Text } from '@react-three/drei'
 import { Interactive, useInteraction} from '@react-three/xr'
 import { useFrame } from "@react-three/fiber";
-import { setPlaceholderIndex } from "../State";
-import { state } from "../State";
+import { setPlaceholderIndex } from "../../State";
+import { state } from "../../State";
 import {useSnapshot} from "valtio";
 
 const BLOCKS = [{text:"Forward", color:"blue"},{text:"Turn", color:"orange"},{text:"Repeat", color:"yellow"}]
@@ -204,7 +204,7 @@ function Box({scale, rest, size, position, color, children}) {
       </>
     )
   } 
-export const VRProgrammingEnvironment = (props) => {
+export const ProgrammingEnvironment = (props) => {
     const [hover, setHover] = useState(false)
     const [code, setCode] = useState([{text:"Forward", color:"blue"},{text:"Forward", color:"blue"},{text:"Forward", color:"blue"},{text:"Turn", color:"orange"},{text:"Forward", color:"blue"},{text:"Forward", color:"blue"},{text:"Repeat", color:"yellow"}]);
     const [color, setColor] = useState(0x123456)

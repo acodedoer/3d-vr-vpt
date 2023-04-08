@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ItemTypes } from "../Constants";
+import { ItemTypes } from "../../Constants";
 import { useDrag, useDrop, DndProvider } from 'react-dnd'
-import "../App.css"
+import "../../App.css"
 import { ExecutableBlocks } from "./ExecutableBlocks";
 import { SourceBlocks } from "./SourceBlocks";
 import {useSnapshot} from "valtio";
-import { setCode, setExecuting, state } from "../State";
+import { setCode, setExecuting, state } from "../../State";
 
 export const ProgrammingEnvironment = (props) => {
     const {code,executing,level} = useSnapshot(state);

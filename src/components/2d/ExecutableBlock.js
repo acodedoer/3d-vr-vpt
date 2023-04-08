@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDrag,useDrop } from 'react-dnd'
-import { ItemTypes } from '../Constants'
+import { ItemTypes } from '../../Constants'
 
 export const ExecutableBlock = ({ name, type, isDropped, setDragged, isDragged,index,check,rearrange, draggedIndex}) => {
     const [{isDragging}, drag] = useDrag(() => ({
