@@ -22,7 +22,6 @@ export const ProgrammingEnvironment = (props) => {
   
       useEffect(()=>{
         setProgram([]);
-        //document.getElementById("playButton").innerText="Play"
         setRunning(false);
       },[level])
       
@@ -40,11 +39,9 @@ export const ProgrammingEnvironment = (props) => {
     const playProgram = () => {
       if(!running){
         setRunning(true);
-        //document.getElementById("playButton").innerText="Stop"
       }
       else{
         setRunning(false);
-        //document.getElementById("playButton").innerText="Play"
       }
     };
     const [busy, setBusy] = useState(false);

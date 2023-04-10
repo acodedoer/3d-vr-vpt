@@ -3,7 +3,7 @@ export const state = proxy({
     level: 1, 
     score:0,
     code: [], 
-    executing: false,
+    executing: true,
     currentPlayerPosition:[null],
     placeholderIndex: undefined,
     selected:undefined

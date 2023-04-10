@@ -70,6 +70,7 @@ export const  PlayerModel = (props) =>{
     if(moves && moves.length>0 && executing){
       switch (moves[moveCount]){
         case "RightCode":
+        case "Right":
           if (meshRef.current && jump<size) {
             size - jump>= interval? jump +=interval: jump += (size - jump)
             let move = (Math.sin(((jump/size) * Math.PI))) ;
@@ -84,6 +85,7 @@ export const  PlayerModel = (props) =>{
           }
           break;
         case "LeftCode":
+        case "Left":
           if (meshRef.current && jump<size) {
             size - jump>= interval? jump +=interval: jump += (size - jump)
             let move = (Math.sin(((jump/size) * Math.PI))) ;
@@ -98,6 +100,7 @@ export const  PlayerModel = (props) =>{
           }
           break;
         case "ForwardCode":
+        case "Forward":
           if (meshRef.current && move<size) {
             if(dirData[1] === "add"){
               if(size - move >= interval){

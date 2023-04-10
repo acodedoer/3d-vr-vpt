@@ -7,12 +7,12 @@ import { GameController } from "./GameController";
 
 export const ExecutionEnvironment = (props) => {
     return(
-        // <group scale={[0.1,0.1,0.1]} position={[0,0.5,-2]}>
+        <group scale={[0.5,0.5,0.5]} position={[3,0.5,-2]}>
         <>
             <GameController/>
             <Level/>
             <Player camRef ={props.camRef}/>
         </>
-        // </group>
+        </group>
     )
 } 
