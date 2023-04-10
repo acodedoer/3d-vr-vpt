@@ -1,6 +1,6 @@
 import { proxy, useProxy } from 'valtio'
 export const state = proxy({ 
-    level: 1, 
+    level: 0, 
     score:0,
     code: [], 
     executing: true,
@@ -8,6 +8,7 @@ export const state = proxy({
     placeholderIndex: undefined,
     selected:undefined,
     draggedIndex:null,
+    animateNextLevel: false
 })
 
 export const setCode = ( blocks ) => {
@@ -44,4 +45,8 @@ export const setSelectedBlock = (value) => {
 
 export const setDraggedIndexState = (value) => {
     state.draggedIndex = value;
+}
+
+export const setAnimateNextLevel = (value) => {
+    state.animateNextLevel = value;
 }
