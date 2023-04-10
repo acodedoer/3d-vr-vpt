@@ -21,7 +21,7 @@ const  App = () => {
         <Hands />
         <ambientLight intensity={0.1} />
         <directionalLight color="white" position={[0, 0, 5]} />
-        <ExecutionEnvironment camRef={camRef}/>
+        {/* <ExecutionEnvironment camRef={camRef}/> */}
         <ProgrammingEnvironmentVR/>
         <OrbitControls />
         </XR>
