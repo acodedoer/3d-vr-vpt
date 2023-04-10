@@ -7,7 +7,7 @@ import { LEVELS } from "../Levels";
 
 const Tile = (props) => {
   const [visible, setVisible] = useState(true);
-  const {currentPlayerPosition,level} = useSnapshot(state);
+  const {currentPlayerPosition,level,executing} = useSnapshot(state);
   const [initialPlayerPosition] = useState(LEVELS[level]["player"]);
 
   const pickPickup = () => {
@@ -26,13 +26,12 @@ const Tile = (props) => {
   },[currentPlayerPosition,initialPlayerPosition])
 
   useEffect(()=>{
-    setVisible(true)
-      if(initialPlayerPosition[0]/2===props.data[0] && initialPlayerPosition[2]/2===props.data[1])
-      {
-        console.log("Initial no gem")
-        setVisible(false) 
-      }
-  },[level])
+    !executing && setVisible(true)
+    if(initialPlayerPosition[0]/2===props.data[0] && initialPlayerPosition[2]/2===props.data[1])
+    {
+      setVisible(false) 
+    }
+  },[level,executing])
 
     return(
         <mesh>

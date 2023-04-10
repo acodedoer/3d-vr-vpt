@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ItemTypes } from "../../Constants";
+import { COLORS, ItemTypes } from "../../Constants";
 import { useDrag, useDrop, DndProvider } from 'react-dnd'
 import "../../App.css"
 import { ExecutableBlocks } from "./ExecutableBlocks";
@@ -26,15 +26,16 @@ export const ProgrammingEnvironment = (props) => {
       },[level])
       
     const rearrange = (block, position) =>{
+      const temp = JSON.parse(JSON.stringify(program));
       if(Number.isFinite(block)){
-        const temp = program[block];
-        program.splice(block, 1)
-        program.splice(position, 0, temp)
+        const block_ = program[block];
+        temp.splice(block, 1)
+        temp.splice(position, 0, block_)
       }
       else{
-        program.splice(position, 0, {name:block.replace("Code", ""),type:block})
+        temp.splice(position, 0, {name:block.replace("Code", ""),type:block})
       }
-      setProgram(program)
+      setProgram(temp)
     }
     const playProgram = () => {
       if(!running){
@@ -48,19 +49,37 @@ export const ProgrammingEnvironment = (props) => {
 
     useEffect(()=>{
         setCode(program)
+        setRunning(false)
     },[program])
 
     useEffect(()=>{
         setExecuting(running)
     },[running])
 
+    const Scroller = (props) =>{
+      return(
+        <button onClick={()=>scrollTo(props.dir)} id={`scroll${props.dir}`}></button>
+      )
+    }
+
+    const [scrollPos, setScrollPos] = useState(11);
+
+    const scrollTo = (dir) =>{
+      dir==="left"?setScrollPos(scrollPos-1):setScrollPos(scrollPos+1);
+      const elem = document.getElementById(`xBlock${scrollPos}`);
+      elem.scrollIntoView();
+    }
+
     return(
-      <div id="programming-area">
+      <div id="programming-area" style={{backgroundColor:COLORS.environmentBG}} >
               <div style={{display:"flex"}}>
-                <div id="execution-area">
+                <div id="execution-area" style={{backgroundColor:COLORS.environmentBG.darken(0.2).hex()}}>
+                 
+                  {/* <Scroller dir={"left"}/>
+                  <Scroller dir={"right"}/> */}
                   <ExecutableBlocks refData ={drop} rearrange={rearrange} busy={busy} blocks={program}/>
                 </div>
-                <button id="playButton" style={{backgroundColor:executing?"red":"#00aa88"}} onClick={()=>playProgram()}>
+                <button id="playButton"  onClick={()=>playProgram()}>
                   <img 
                     id="playButtonImage" 
                     src={`/assets/images/${executing?"stop":"play"}.png`}

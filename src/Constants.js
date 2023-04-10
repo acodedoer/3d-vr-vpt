@@ -1,3 +1,5 @@
+import Color from "color"
+
 export const ItemTypes = {
     FORWARD: 'Forward',
     LEFT: 'Left',
@@ -7,4 +9,15 @@ export const ItemTypes = {
     LEFTCODE: 'LeftCode',
     RIGHTCODE: 'RightCode',
     REPEATCODE: 'RepeatCode'
+  }
+
+  export const COLORS ={
+    environmentBG:Color("#98eae0"),
+    forwardBlock:"",
+    turnBloc:"",
+    repeatBlock:"",
+    playButton:"",
+    stopButton:"",
+    exectionBoard:"",
+    sourceBoard:""
   }

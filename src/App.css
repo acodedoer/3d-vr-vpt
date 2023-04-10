@@ -27,7 +27,6 @@
 #programming-area{
   min-width: 100%;
   min-height: 250px;
-  background-color: azure;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,22 +38,32 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: aquamarine;
-  position: absolute;
   bottom: 0px;
+}
+#scrollright, #scrollleft{
+  height: 100px;
+  width:40px;
+  position: fixed;
+}
+
+#scrollleft{
+  left: 0px;
+}
+#scrollright{
+  right: 0px;
 }
 
 #execution-area{
-  max-width: 960px;
-  min-width: 400px;
+  max-width: 800px;
+  width: 800px;
   height: 90px;
-  background-color: bisque;
   display: flex;
   justify-content: left;
   align-items: center;
   padding-left: 8px;
   max-width: 800px;
-  overflow: auto;
+  overflow: hidden;
+  position: relative;
 
 }
 body{

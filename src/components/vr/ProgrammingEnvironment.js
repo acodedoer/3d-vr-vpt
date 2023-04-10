@@ -6,6 +6,7 @@ import {useSnapshot} from "valtio";
 import { setCode, setExecuting, state } from "../../State";
 import { Interactive} from '@react-three/xr'
 import { useLoader } from '@react-three/fiber'
+import { Decal } from '@react-three/drei'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
 
   const SourceBoard = () => {
@@ -29,6 +30,30 @@ const ExecutablesBoard = (props) => {
   )
 }
 
+
+function Sticker({ url, ...props }) {
+  const image = useLoader(TextureLoader, url)
+  return (
+    <Decal {...props}>
+      <meshStandardMaterial
+        transparent
+        polygonOffset
+        polygonOffsetFactor={-10}
+        map={image}
+        map-flipY={false}
+        map-anisotropy={16}
+        iridescence={1}
+        iridescenceIOR={1}
+        iridescenceThicknessRange={[0, 1400]}
+        roughness={1}
+        clearcoat={0.5}
+        metalness={0.75}
+        toneMapped={false}
+      />
+    </Decal>
+  )
+}
+
 const PlayButton = (props) => {
   const playTexture = useLoader(TextureLoader, `assets/images/play.png`)
   const stopTexture = useLoader(TextureLoader, `assets/images/stop.png`)
@@ -36,7 +61,8 @@ const PlayButton = (props) => {
     <Interactive onSelect={()=>props.onSelect()}>
       <mesh scale={[1.5,1.5,0.1]} position={props.position}>
           <boxGeometry/>
-          <meshStandardMaterial color={props.color} map={playTexture} alphaMap={playTexture}/>
+          <meshStandardMaterial color={props.color}/>
+         <Sticker url={"assets/images/play.png"} rotation={[0,0,0]} scale={[0.5,0.5,0.5]}position={[0, 0, 0.5]}/>
       </mesh>
     </Interactive>
   )
@@ -96,6 +122,7 @@ export const ProgrammingEnvironment = (props) => {
     
     useEffect(()=>{
       setCode(code)
+      setExecuting(false)
   },[code])
 
 return(
@@ -103,7 +130,6 @@ return(
         <ExecutablesBoard dimension={dimension} code={code}/>
         <ExecutableBlocks dimension={dimension} setCode={updateCode} selectedBlock={selectedRef} topBusy={busy} code={code}/>
         <PlayButton position={[dimension.width/2 + 0.95,5,-5]} color={executing?"red":"#00aa88"} onSelect={playProgram}/>
-        <PlayButton position={[0,0,-5]} color={executing?"red":"#00aa88"} onSelect={playProgram}/>
         <SourceBoard/>
         <SourceBlocks setCode={updateCode} setSelectedRef={setSelectedRef} setTopBusy={setBusy}/>
     </>

@@ -4,7 +4,7 @@ import {useSnapshot} from "valtio";
 import { LEVELS } from "../Levels";
 
 export const GameController = () => {
-    const {score,level} = useSnapshot(state);
+    const {score,level, executing} = useSnapshot(state);
     const [pickups,setPickups] = useState(LEVELS[level]["pickups"]);
     useEffect(()=>{
         // eslint-disable-next-line no-unused-expressions
@@ -15,9 +15,12 @@ export const GameController = () => {
     },[score,pickups])
 
     useEffect(()=>{
-        resetScore();
-        setPickups(LEVELS[level]["pickups"]);
-    },[level])
+        if(!executing){
+            resetScore();
+            setPickups(LEVELS[level]["pickups"]);
+        }
+    },[level,executing])
+
     return(
         <>
         </>

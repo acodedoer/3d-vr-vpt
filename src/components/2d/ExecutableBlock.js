@@ -28,6 +28,7 @@ export const ExecutableBlock = ({ name, type, isDropped, setDragged, isDragged,i
     return (
         !isActive?
         <img src={`assets/images/${name}.png`}
+        id={`xBlock${index}`}
         ref={!check?drag:isDragged?drag:drop}
         className={"executable-block"}
         style={{
