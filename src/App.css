@@ -7,6 +7,23 @@
   height: 100vh;
 }
 
+#playButton{
+  width: 80px;
+  margin-left: 8px;
+  border: none;
+  background-color: #00aa88;
+  cursor: pointer;
+  padding: 1%;
+}
+
+#playButtonImage{
+  max-width: 60%;
+}
+#playButton:hover{
+  padding: 0;
+}
+
+
 #programming-area{
   min-width: 100%;
   min-height: 250px;
