@@ -5,7 +5,8 @@ import { ExecutableBlocks } from "./ExecutableBlocks";
 import {useSnapshot} from "valtio";
 import { setCode, setExecuting, state } from "../../State";
 import { Interactive} from '@react-three/xr'
-
+import { useLoader } from '@react-three/fiber'
+import { TextureLoader } from 'three/src/loaders/TextureLoader'
 
   const SourceBoard = () => {
     return(
@@ -29,12 +30,13 @@ const ExecutablesBoard = (props) => {
 }
 
 const PlayButton = (props) => {
-
+  const playTexture = useLoader(TextureLoader, `assets/images/play.png`)
+  const stopTexture = useLoader(TextureLoader, `assets/images/stop.png`)
   return(
-    <Interactive onSelect={()=>props.onSelect()} onHover={()=>console.log("Hovered")}>
+    <Interactive onSelect={()=>props.onSelect()}>
       <mesh scale={[1.5,1.5,0.1]} position={props.position}>
           <boxGeometry/>
-          <meshStandardMaterial color={props.color} />
+          <meshStandardMaterial color={props.color} map={playTexture} alphaMap={playTexture}/>
       </mesh>
     </Interactive>
   )
