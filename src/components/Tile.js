@@ -19,7 +19,6 @@ const Tile = (props) => {
     if(visible){
       if (currentPlayerPosition[0]/2===props.data[0] && currentPlayerPosition[1]/2===props.data[1])
       {
-        console.log("Picked up gem")
         pickPickup()
       }
     }
@@ -31,7 +30,7 @@ const Tile = (props) => {
     {
       setVisible(false) 
     }
-  },[level,executing])
+  },[level, executing])
 
     return(
         <mesh>

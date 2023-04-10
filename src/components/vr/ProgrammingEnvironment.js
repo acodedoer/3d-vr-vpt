@@ -9,16 +9,14 @@ import { useLoader } from '@react-three/fiber'
 import { Decal } from '@react-three/drei'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
 
-  const SourceBoard = () => {
-    return(
-        <mesh scale={[4.5,1.5,0.1]} position={[0,3,-5]}>
-            <boxGeometry/>
-            <meshStandardMaterial color={"skyblue"} />
-        </mesh>
-    )
-  }
-
-
+const SourceBoard = () => {
+  return(
+      <mesh scale={[4.5,1.5,0.1]} position={[0,3,-5]}>
+          <boxGeometry/>
+          <meshStandardMaterial color={"skyblue"} />
+      </mesh>
+  )
+}
 
 const ExecutablesBoard = (props) => {
 
@@ -119,7 +117,6 @@ export const ProgrammingEnvironment = (props) => {
       setLocalCode(temp)
     }
 
-    
     useEffect(()=>{
       setCode(code)
       setExecuting(false)

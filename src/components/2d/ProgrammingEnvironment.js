@@ -6,6 +6,7 @@ import { ExecutableBlocks } from "./ExecutableBlocks";
 import { SourceBlocks } from "./SourceBlocks";
 import {useSnapshot} from "valtio";
 import { setCode, setExecuting, state } from "../../State";
+import { Bin } from "./Bin";
 
 export const ProgrammingEnvironment = (props) => {
     const {code,executing,level} = useSnapshot(state);
@@ -24,7 +25,13 @@ export const ProgrammingEnvironment = (props) => {
         setProgram([]);
         setRunning(false);
       },[level])
-      
+
+    const remove = (index) => {
+      const temp = JSON.parse(JSON.stringify(program));
+      temp.splice(index, 1);
+      setProgram(temp);
+    }
+
     const rearrange = (block, position) =>{
       const temp = JSON.parse(JSON.stringify(program));
       if(Number.isFinite(block)){
@@ -37,6 +44,7 @@ export const ProgrammingEnvironment = (props) => {
       }
       setProgram(temp)
     }
+
     const playProgram = () => {
       if(!running){
         setRunning(true);
@@ -72,6 +80,9 @@ export const ProgrammingEnvironment = (props) => {
 
     return(
       <div id="programming-area" style={{backgroundColor:COLORS.environmentBG}} >
+              <div style={{position:"absolute", top:0,right:0, padding:"20px", fontSize:"2em"}}>
+                Level {level}
+              </div>
               <div style={{display:"flex"}}>
                 <div id="execution-area" style={{backgroundColor:COLORS.environmentBG.darken(0.2).hex()}}>
                  
@@ -79,7 +90,7 @@ export const ProgrammingEnvironment = (props) => {
                   <Scroller dir={"right"}/> */}
                   <ExecutableBlocks refData ={drop} rearrange={rearrange} busy={busy} blocks={program}/>
                 </div>
-                <button id="playButton"  onClick={()=>playProgram()}>
+                <button id="playButton" style={{backgroundColor:executing?"red":COLORS.playButton}} onClick={()=>playProgram()}>
                   <img 
                     id="playButtonImage" 
                     src={`/assets/images/${executing?"stop":"play"}.png`}
@@ -88,6 +99,7 @@ export const ProgrammingEnvironment = (props) => {
               </div>
               <div id="blocks-area">
               <SourceBlocks setBusy={setBusy}/>
+              <Bin  remove={remove} />
               </div>
           </div>
     )

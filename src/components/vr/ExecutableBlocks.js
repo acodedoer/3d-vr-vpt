@@ -10,7 +10,7 @@ export const ExecutableBlocks = (props) => {
             start={true}
             setCode={props.setCode} 
             selectedBlock={props.selectedBlock} 
-            busy={props.topBusy} 
+            busy={props.topBusy}
             key={-1} 
             index={-1} 
         />

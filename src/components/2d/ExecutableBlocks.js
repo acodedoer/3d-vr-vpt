@@ -2,11 +2,17 @@ import { SourceBlock } from "./SourceBlock"
 import { ExecutableBlock } from "./ExecutableBlock"
 import { ItemTypes } from "../../Constants"
 import { useEffect, useState } from "react"
+import { setDraggedIndexState } from "../../State"
+
 
 export const ExecutableBlocks = (props) =>{
     const [draggedIndex, setDraggedIndex] = useState(null);
     const [blocks,setBlocks] = useState(props.program)
 
+    useEffect(()=>{
+      setDraggedIndexState(draggedIndex);
+    },[draggedIndex])
+    
     useEffect(()=>setBlocks(props.blocks),[props.blocks])
       return(
         <>

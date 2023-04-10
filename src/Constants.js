@@ -16,8 +16,9 @@ export const ItemTypes = {
     forwardBlock:"",
     turnBloc:"",
     repeatBlock:"",
-    playButton:"",
+    playButton:Color("#00aa88"),
     stopButton:"",
     exectionBoard:"",
-    sourceBoard:""
+    sourceBoard:"",
+    deleteButton:Color("#ff0000")
   }

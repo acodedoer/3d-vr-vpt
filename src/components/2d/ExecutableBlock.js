@@ -21,6 +21,7 @@ export const ExecutableBlock = ({ name, type, isDropped, setDragged, isDragged,i
         }) 
     })
     const isActive = isOver && canDrop
+    
     useEffect(()=>{
         isDragging?setDragged(index):setDragged(null)
     },[isDragging,setDragged])

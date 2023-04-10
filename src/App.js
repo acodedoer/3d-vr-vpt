@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { Canvas} from '@react-three/fiber'
+import { Canvas, useThree} from '@react-three/fiber'
 import "./App.css"
 import { OrbitControls} from "@react-three/drei";
 import { VRButton, XR, Controllers, Hands } from '@react-three/xr'
@@ -16,13 +16,13 @@ const  App = () => {
   return (
     <div id="canvas-container">
         {/* <VRButton/> */}
-      <Canvas camera={{zoom:10, position:[-2.5,100,2.5] }} style={{ background: COLORS.environmentBG }}>
+      <Canvas  camera={{zoom:10, position:[-2.5,100,2.5]}} style={{ background: COLORS.environmentBG }}>
         <XR>
         <Controllers />
         <Hands />
         <ambientLight intensity={0.1} />
         <directionalLight color="white" position={[0, 0, 5]} />
-        <ExecutionEnvironment camRef={camRef}/>
+        <ExecutionEnvironment camRef={camRef}/> 
         {/* <ProgrammingEnvironmentVR/> */}
         <OrbitControls />
         </XR>
@@ -30,7 +30,7 @@ const  App = () => {
       <DndProvider backend={HTML5Backend}>
         <ProgrammingEnvironment2D/>
       </DndProvider>     
-    </div>
+    </div> 
   )
 }
 
