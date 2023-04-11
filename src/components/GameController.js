@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { state,nextLevel, setAnimateNextLevel, resetScore,setExecuting } from "../State";
+import { state,nextLevel, setAnimateNextLevel, resetScore,setExecuting, resetMoves } from "../State";
 import {useSnapshot} from "valtio";
 import { LEVELS } from "../Levels";
 
@@ -18,6 +18,7 @@ export const GameController = () => {
         {
             setExecuting(false);
             nextLevel()
+            resetMoves()
         }
     },[animateNextLevel])
 
@@ -28,6 +29,7 @@ export const GameController = () => {
         if(!executing){
             console.log("Reset")
             resetScore();
+            resetMoves();
             setPickups(LEVELS[level]["pickups"]);
         }
     },[level,executing])

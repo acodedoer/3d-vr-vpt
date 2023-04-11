@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDrag,useDrop } from 'react-dnd'
 import { ItemTypes } from '../../Constants'
 
-export const ExecutableBlock = ({ name, type, setDragged, isDragged,index,check,rearrange, draggedIndex}) => {
+export const ExecutableBlock = ({ active, name, type, setDragged, isDragged,index,check,rearrange, draggedIndex}) => {
     const [{isDragging}, drag] = useDrag(() => ({
         type: type,
         item: name,
@@ -32,7 +32,7 @@ export const ExecutableBlock = ({ name, type, setDragged, isDragged,index,check,
         alt={`a ${name} block`}
         id={`xBlock${index}`}
         ref={!check?drag:isDragged?drag:drop}
-        className={"executable-block"}
+        className={`executable-block ${active?"animate-block":""}`}
         style={{
           transform: `translate(-${(index+1)*7}px, 0)`,
           opacity: isDragging ? 0.5 : 1,

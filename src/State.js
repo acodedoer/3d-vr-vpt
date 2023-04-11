@@ -10,6 +10,7 @@ export const state = proxy({
     draggedIndex:null,
     animateNextLevel: false,
     animateFall:false,
+    moveState:null,
 })
 
 export const setCode = ( blocks ) => {
@@ -53,4 +54,16 @@ export const setAnimateNextLevel = (value) => {
 }
 export const setAnimateFall = (value) => {
     state.animateFall = value;
+}
+
+export const nextMove = () => {
+    state.moveState++;
+}
+
+export const resetMoves = () => {
+    state.moveState=null;
+}
+
+export const startMoves = () => {
+    state.moveState=0;
 }

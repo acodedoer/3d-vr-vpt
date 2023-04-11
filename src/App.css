@@ -87,3 +87,11 @@ body{
   min-width: 80px;
   min-height: 72.8125px;
 }
+
+@keyframes fadeInOut { 
+  from { opacity: 0.5; } 
+}
+
+.animate-block {
+    animation: fadeInOut 0.25s infinite alternate;
+}

@@ -2,12 +2,15 @@ import { SourceBlock } from "./SourceBlock"
 import { ExecutableBlock } from "./ExecutableBlock"
 import { ItemTypes } from "../../Constants"
 import { useEffect, useState } from "react"
-import { setDraggedIndexState } from "../../State"
+import { setDraggedIndexState,state } from "../../State"
 import { StartBlock } from "./Start"
+import { useSnapshot } from "valtio"
+
 
 
 export const ExecutableBlocks = (props) =>{
     const [draggedIndex, setDraggedIndex] = useState(null);
+    const {moveState} = useSnapshot(state);
     const [blocks,setBlocks] = useState(props.program)
 
     useEffect(()=>{
@@ -27,6 +30,7 @@ export const ExecutableBlocks = (props) =>{
             type={type}
             key={index}
             index={index}
+            active={index===moveState}
             rearrange={props.rearrange}
             draggedIndex={draggedIndex}
             check={props.busy?props.busy:draggedIndex!==null}
