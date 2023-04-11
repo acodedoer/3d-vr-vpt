@@ -8,7 +8,7 @@ import { useGLTF } from "@react-three/drei/core/useGLTF";
 export const TileModel = (props) => {
   const { nodes, materials } = useGLTF("/assets/gltf/tileMedium_forest.gltf.glb");
   return (
-    <group {...props} dispose={null}>
+    <group {...props} visible={props.render} dispose={null}>
       <mesh
         castShadow
         receiveShadow

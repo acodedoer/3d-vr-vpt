@@ -14,7 +14,7 @@ export const PickupModel = (props) => {
     if(pickupRef.current) pickupRef.current.rotation.y += 0.01
   })
   return (
-    <group {...props} ref={pickupRef} dispose={null}>
+    <group {...props} visible={props.render} ref={pickupRef} dispose={null}>
       <mesh
         castShadow
         receiveShadow

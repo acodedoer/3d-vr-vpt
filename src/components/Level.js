@@ -14,7 +14,8 @@ export const Level = () => {
     return(
        levelData&&levelData.map((row, i)=>
             row.map((tile, j)=>{
-                return tile?<Tile data={[i-2,j-2]} visible={true} index={i*levelData[0].length + j} position={[(i-2)*2, 0, (j-2)*2]}/>:null
+                return tile?<Tile data={[i-2,j-2]} render={true} visible={true} index={i*levelData[0].length + j} position={[(i-2)*2, 0, (j-2)*2]}/>:
+                <Tile data={[i-2,j-2]} visible={false} render={false} index={i*levelData[0].length + j} position={[(i-2)*2, 0, (j-2)*2]}/>
             }
             )
         )

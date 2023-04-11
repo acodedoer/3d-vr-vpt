@@ -8,7 +8,8 @@ export const state = proxy({
     placeholderIndex: undefined,
     selected:undefined,
     draggedIndex:null,
-    animateNextLevel: false
+    animateNextLevel: false,
+    animateFall:false,
 })
 
 export const setCode = ( blocks ) => {
@@ -49,4 +50,7 @@ export const setDraggedIndexState = (value) => {
 
 export const setAnimateNextLevel = (value) => {
     state.animateNextLevel = value;
+}
+export const setAnimateFall = (value) => {
+    state.animateFall = value;
 }
