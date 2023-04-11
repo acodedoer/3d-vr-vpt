@@ -7,11 +7,12 @@ import { LEVELS } from "../Levels";
 import { render } from '@testing-library/react';
 
 const Tile = (props) => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(props.visible);
   const {currentPlayerPosition,level,executing} = useSnapshot(state);
   const [initialPlayerPosition] = useState(LEVELS[level]["player"]);
 
   const pickPickup = () => {
+    console.log("Picked Up")
     setVisible(false);
     incrementScore();
   }
@@ -20,7 +21,7 @@ const Tile = (props) => {
     if(visible){
       if (currentPlayerPosition[0]/2===props.data[0] && currentPlayerPosition[1]/2===props.data[1])
       {
-        pickPickup()
+        props.render && pickPickup()
       }
     }
 

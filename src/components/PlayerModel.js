@@ -11,7 +11,7 @@ import { LEVELS } from "../Levels";
 
 export const  PlayerModel = (props) =>{
   const {code,executing, level,animateNextLevel,animateFall} = useSnapshot(state);
-  const {celebrate, setCelebrate} = useState(false);
+  const [celebrate, setCelebrate] = useState(false);
   const [initialPos, setInitialPos] = useState(LEVELS[level]["player"]);
   const meshRef = useRef();
   
@@ -46,6 +46,9 @@ export const  PlayerModel = (props) =>{
   }, [level])
 
   useEffect(()=>{
+    setTimeout(()=>setCelebrate(true), 250)
+  }, [animateNextLevel])
+  useEffect(()=>{
     if(!executing){
       meshRef.current.position.x=initialPos[0];
       meshRef.current.position.y=initialPos[1];
@@ -62,7 +65,7 @@ export const  PlayerModel = (props) =>{
   }
 
   useFrame((state, delta, xrFrame) => {
-    if(animateNextLevel){
+    if(celebrate){
       if (meshRef.current && jump<size) {
         size - jump>= interval? jump +=interval: jump += (size - jump)
         let move = (Math.sin(((jump/size) * Math.PI))) ;
@@ -72,6 +75,7 @@ export const  PlayerModel = (props) =>{
       else{
         setTimeout(()=>{
           setAnimateNextLevel(false);
+          setCelebrate(false)
         },250)
       }
     }

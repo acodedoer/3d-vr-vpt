@@ -4,12 +4,12 @@ import {useSnapshot} from "valtio";
 import { LEVELS } from "../Levels";
 
 export const GameController = () => {
-    const {score,level, executing, animateNextLevel} = useSnapshot(state);
+    const {score,level, executing, animateNextLevel, animateFall} = useSnapshot(state);
     const [pickups,setPickups] = useState(LEVELS[level]["pickups"]);
     useEffect(()=>{
         // eslint-disable-next-line no-unused-expressions
         if(score>=pickups){
-            setTimeout(()=> setAnimateNextLevel(true),250)
+            setAnimateNextLevel(true);
         }
     },[score,pickups])
 
@@ -20,8 +20,13 @@ export const GameController = () => {
             nextLevel()
         }
     },[animateNextLevel])
+
+    // useEffect(()=>{
+    //     animateFall && resetScore()
+    // })
     useEffect(()=>{
         if(!executing){
+            console.log("Reset")
             resetScore();
             setPickups(LEVELS[level]["pickups"]);
         }
