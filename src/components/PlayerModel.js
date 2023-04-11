@@ -19,6 +19,7 @@ export const  PlayerModel = (props) =>{
   let jump = 0;
   let move = 0;
   let dir = 0;
+  let fall = 0.05;
   let dirData = ["z","add"];
   const interval = 0.05;
   const [moves, setMoves] = useState([]);
@@ -76,7 +77,8 @@ export const  PlayerModel = (props) =>{
     }
 
     if(animateFall){
-      meshRef.current.position.y-=0.9;
+      meshRef.current.position.y-=fall*fall;
+      fall+=0.05;
       if(meshRef.current.position.y<=-50){
         setAnimateFall(false);
         setExecuting(false);
