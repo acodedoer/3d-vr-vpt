@@ -14,7 +14,7 @@ export const ExecutableBlock = ({ name, type, setDragged, isDragged,index,check,
 
     const [{ isOver, canDrop }, drop] = useDrop({
         accept: [ItemTypes.FORWARDCODE, ItemTypes.LEFTCODE, ItemTypes.RIGHTCODE, ItemTypes.FORWARD, ItemTypes.LEFT, ItemTypes.RIGHT],
-        drop: (i,monitor)=>{rearrange(draggedIndex || draggedIndex===0?draggedIndex:monitor.getItemType()+"Code", index)},
+        drop: (i,monitor)=>{rearrange(draggedIndex || draggedIndex===0?draggedIndex:monitor.getItemType()+"Code", index>draggedIndex?index:index+1)},
         collect: (monitor) => ({
           isOver: monitor.isOver(),
           canDrop: monitor.canDrop(),
