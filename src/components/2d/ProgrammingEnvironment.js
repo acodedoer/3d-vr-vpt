@@ -12,6 +12,7 @@ export const ProgrammingEnvironment = (props) => {
     const {code,executing,level} = useSnapshot(state);
     const [running,setRunning] = useState(false);
     const [program, setProgram] = useState([]);
+    
     const [{ isOver, canDrop }, drop] = useDrop({
       accept: [ItemTypes.FORWARD, ItemTypes.LEFT, ItemTypes.RIGHT],
       drop: (i,monitor)=>{setProgram([...program, {name:monitor.getItemType(),type:monitor.getItemType()+"Code"}])},
@@ -78,6 +79,9 @@ export const ProgrammingEnvironment = (props) => {
       elem.scrollIntoView();
     }
 
+    useEffect(()=>{
+      console.log(canDrop)
+    },[canDrop])
     return(
       <div id="programming-area" style={{backgroundColor:COLORS.environmentBG}} >
               <div style={{position:"absolute", top:0,right:0, padding:"20px", fontSize:"2em", fontWeight:"bold"}}>
@@ -88,7 +92,7 @@ export const ProgrammingEnvironment = (props) => {
                  
                   {/* <Scroller dir={"left"}/>
                   <Scroller dir={"right"}/> */}
-                  <ExecutableBlocks refData ={drop} rearrange={rearrange} busy={busy} blocks={program}/>
+                  <ExecutableBlocks refData ={drop} showPlaceholder={isOver && canDrop} rearrange={rearrange} busy={busy} blocks={program}/>
                 </div>
                 <button id="playButton" style={{backgroundColor:executing?"red":COLORS.playButton}} onClick={()=>playProgram()}>
                   <img 

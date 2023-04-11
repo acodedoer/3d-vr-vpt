@@ -3,6 +3,7 @@ import { ExecutableBlock } from "./ExecutableBlock"
 import { ItemTypes } from "../../Constants"
 import { useEffect, useState } from "react"
 import { setDraggedIndexState } from "../../State"
+import { StartBlock } from "./Start"
 
 
 export const ExecutableBlocks = (props) =>{
@@ -16,7 +17,10 @@ export const ExecutableBlocks = (props) =>{
     useEffect(()=>setBlocks(props.blocks),[props.blocks])
       return(
         <>
-        <img className={"executable-block"} src={`assets/images/start.png`}/>
+        <StartBlock
+           rearrange={props.rearrange}
+           draggedIndex={draggedIndex}
+        />
         { blocks&&blocks.map(({ name, type }, index) => (
           <ExecutableBlock
             name={name}
@@ -30,10 +34,7 @@ export const ExecutableBlocks = (props) =>{
             isDragged={draggedIndex === index}
           />
         ))}
-        <div ref={props.refData} className={"executable-block"} style={{
-            transform: `translate(-${(blocks&&blocks.length)*7}px, 0)`,
-        }}>
-        </div>
+        <img ref={props.refData} className={"executable-block"} style={{transform: `translate(${-3.5 -(blocks&&blocks.length)*7}px`, opacity:props.showPlaceholder?0.5:0}} alt={`a placeholder block`} src={`assets/images/placeholder.png`} />
         </>
       )
 }

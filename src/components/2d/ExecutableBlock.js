@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDrag,useDrop } from 'react-dnd'
 import { ItemTypes } from '../../Constants'
 
-export const ExecutableBlock = ({ name, type, isDropped, setDragged, isDragged,index,check,rearrange, draggedIndex}) => {
+export const ExecutableBlock = ({ name, type, setDragged, isDragged,index,check,rearrange, draggedIndex}) => {
     const [{isDragging}, drag] = useDrag(() => ({
         type: type,
         item: name,
@@ -29,6 +29,7 @@ export const ExecutableBlock = ({ name, type, isDropped, setDragged, isDragged,i
     return (
         !isActive?
         <img src={`assets/images/${name}.png`}
+        alt={`a ${name} block`}
         id={`xBlock${index}`}
         ref={!check?drag:isDragged?drag:drop}
         className={"executable-block"}
@@ -42,8 +43,8 @@ export const ExecutableBlock = ({ name, type, isDropped, setDragged, isDragged,i
             display:"flex",
             transform: `translate(-${(index+1)*7}px, 0)`,
         }}>
-       <div className={"executable-block"}></div>
-            <img className={"executable-block"} src={`assets/images/${name}.png`} />
+            <img className={"executable-block"} src={`assets/images/${name}.png`} alt={`a ${name} block`} />
+            <img className={"executable-block"} style={{transform: `translate(-3.5px, 0)`, opacity:0.5}} alt={`a placeholder block`} src={`assets/images/placeholder.png`} />
         </div>
     )
 }
