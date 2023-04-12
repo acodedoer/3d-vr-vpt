@@ -15,7 +15,7 @@ const  App = () => {
   
   return (
     <div id="canvas-container">
-        {/* <VRButton/> */}
+        <VRButton/>
       <Canvas  camera={{zoom:10, position:[-2.5,100,2.5]}} style={{ background: COLORS.environmentBG }}>
         <XR>
         <Controllers />
@@ -23,7 +23,7 @@ const  App = () => {
         <ambientLight intensity={0.1} />
         <directionalLight color="white" position={[0, 0, 5]} />
         <ExecutionEnvironment camRef={camRef}/> 
-        {/* <ProgrammingEnvironmentVR/> */}
+        <ProgrammingEnvironmentVR/>
         <OrbitControls />
         </XR>
       </Canvas>  

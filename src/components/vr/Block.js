@@ -10,20 +10,22 @@ export const Block = (props) => {
         <Interactive>
         <mesh ref={props.myRef} scale = {props.scale} position={props.position}>
             <boxGeometry/>
-            <meshStandardMaterial map={primaryTexture} opacity={props.color==="white"?0.1:1} transparent/>
+            <meshStandardMaterial map={primaryTexture} opacity={props.type==="placeholder"?0.5:1} transparent/>
             <mesh ref={props.ref} scale = {[0.17,0.3,1]} position={[-.54,0.35,0]}>
               <boxGeometry/>
-              <meshStandardMaterial map={secondaryTexture} opacity={props.color==="white"?0.1:1} transparent/>
+              <meshStandardMaterial map={secondaryTexture} opacity={props.type==="placeholder"?0.5:1} transparent/>
             </mesh>
             <mesh ref={props.ref} scale = {[0.17,0.3,1]} position={[-.54,-0.35,0]}>
               <boxGeometry/>
-              <meshStandardMaterial map={secondaryTexture} opacity={props.color==="white"?0.1:1} transparent/>
+              <meshStandardMaterial map={secondaryTexture} opacity={props.type==="placeholder"?0.5:1} transparent/>
             </mesh>
             <mesh ref={props.ref} scale = {[0.17,0.38,1]} position={[.54,0,0]} >
               <boxGeometry/>
-              <meshStandardMaterial map={secondaryTexture} opacity={props.color==="white"?0.1:1} transparent/>
+              <meshStandardMaterial map={secondaryTexture} opacity={props.type==="placeholder"?0.5:1} transparent/>
             </mesh>
         </mesh>
         </Interactive>
     )
 }
+
+useLoader.preload(TextureLoader,["assets/images/placeholder_vr_primary.png","assets/images/placeholder_vr_secondary.png"])

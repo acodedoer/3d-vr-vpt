@@ -29,7 +29,7 @@ export const ExecutableBlock = (props) => {
 
     useEffect(()=>{
       if(collided && !placeholder && props.color!=="white"){
-        !placeholder && props.setCode({type:selected.type, color:"white"},props.index+1)
+        !placeholder && props.setCode({type:"placeholder", color:"white"},props.index+1)
         placeholderSet(true);
         setPlaceholderIndex(props.index+1)
       }
