@@ -84,9 +84,7 @@ export const ProgrammingEnvironment = (props) => {
       elem.scrollIntoView();
     }
 
-    useEffect(()=>{
-      console.log(canDrop)
-    },[canDrop])
+
     return(
       <div id="programming-area" style={{backgroundColor:COLORS.environmentBG}} >
               <div style={{position:"absolute", top:0,right:0, padding:"20px", fontSize:"2em", fontWeight:"bold"}}>

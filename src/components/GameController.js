@@ -27,7 +27,6 @@ export const GameController = () => {
     // })
     useEffect(()=>{
         if(!executing){
-            console.log("Reset")
             resetScore();
             resetMoves();
             setPickups(LEVELS[level]["pickups"]);

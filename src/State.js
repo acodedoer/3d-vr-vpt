@@ -11,6 +11,7 @@ export const state = proxy({
     animateNextLevel: false,
     animateFall:false,
     moveState:null,
+    vrBlocksBusy:false,
 })
 
 export const setCode = ( blocks ) => {
@@ -66,4 +67,8 @@ export const resetMoves = () => {
 
 export const startMoves = () => {
     state.moveState=0;
+}
+
+export const setVRBlocksBusy = (value) => {
+    state.vrBlocksBusy=value;
 }
