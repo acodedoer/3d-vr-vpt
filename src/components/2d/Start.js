@@ -13,7 +13,7 @@ export const StartBlock = ({ index,rearrange, draggedIndex}) => {
     const isActive = isOver && canDrop
 
     return (
-        !isActive?
+        !isActive || draggedIndex===0?
         <img src={`assets/images/start.png`}
         alt={`a start block`}
         id={`xBlocks-1`}
