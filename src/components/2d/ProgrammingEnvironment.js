@@ -47,6 +47,7 @@ export const ProgrammingEnvironment = (props) => {
     }
 
     const playProgram = () => {
+      console.log("Play is: ", running)
       if(!running){
         setRunning(true);
       }
@@ -64,6 +65,10 @@ export const ProgrammingEnvironment = (props) => {
     useEffect(()=>{
         setExecuting(running)
     },[running])
+
+    useEffect(()=>{
+        setRunning(executing)
+    },[executing])
 
     const Scroller = (props) =>{
       return(

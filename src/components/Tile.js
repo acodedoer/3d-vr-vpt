@@ -34,7 +34,6 @@ const Tile = (props) => {
     !executing && setVisible(true)
     if(initialPlayerPosition[0]/2===props.data[0] && initialPlayerPosition[2]/2===props.data[1])
     {
-      console.log(initialPlayerPosition)
       setVisible(false) 
     }
   },[level, executing])
