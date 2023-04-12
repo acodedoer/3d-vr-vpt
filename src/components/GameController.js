@@ -17,7 +17,7 @@ export const GameController = () => {
         if(!animateNextLevel)
         {
             setExecuting(false);
-            nextLevel()
+            score>=pickups && nextLevel()
             resetMoves()
         }
     },[animateNextLevel])

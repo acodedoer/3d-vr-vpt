@@ -1,8 +1,13 @@
 import { useEffect } from 'react'
 import { useDrag,useDrop } from 'react-dnd'
 import { ItemTypes } from '../../Constants'
+import { state } from "../../State";
+import {useSnapshot} from "valtio";
+
 
 export const ExecutableBlock = ({ active, name, type, setDragged, isDragged,index,check,rearrange, draggedIndex}) => {
+    
+    const {executing} = useSnapshot(state);
     const [{isDragging}, drag] = useDrag(() => ({
         type: type,
         item: name,
@@ -14,7 +19,9 @@ export const ExecutableBlock = ({ active, name, type, setDragged, isDragged,inde
 
     const [{ isOver, canDrop }, drop] = useDrop({
         accept: [ItemTypes.FORWARDCODE, ItemTypes.LEFTCODE, ItemTypes.RIGHTCODE, ItemTypes.FORWARD, ItemTypes.LEFT, ItemTypes.RIGHT],
-        drop: (i,monitor)=>{rearrange(draggedIndex || draggedIndex===0?draggedIndex:monitor.getItemType()+"Code", index>draggedIndex?index:index+1)},
+        drop: (i,monitor)=>{
+            rearrange(draggedIndex || draggedIndex===0?draggedIndex:monitor.getItemType()+"Code", draggedIndex===null || index <draggedIndex?index+1:index)
+        },
         collect: (monitor) => ({
           isOver: monitor.isOver(),
           canDrop: monitor.canDrop(),

@@ -1,6 +1,6 @@
 import { proxy, useProxy } from 'valtio'
 export const state = proxy({ 
-    level: 0, 
+    level: 1, 
     score:0,
     code: [], 
     executing: true,

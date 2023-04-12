@@ -9,10 +9,9 @@ import { render } from '@testing-library/react';
 const Tile = (props) => {
   const [visible, setVisible] = useState(props.visible);
   const {currentPlayerPosition,level,executing} = useSnapshot(state);
-  const [initialPlayerPosition] = useState(LEVELS[level]["player"]);
+  const [initialPlayerPosition,setInitialPlayerPosition] = useState(LEVELS[level]["player"]);
 
   const pickPickup = () => {
-    console.log("Picked Up")
     setVisible(false);
     incrementScore();
   }
@@ -35,10 +34,11 @@ const Tile = (props) => {
     !executing && setVisible(true)
     if(initialPlayerPosition[0]/2===props.data[0] && initialPlayerPosition[2]/2===props.data[1])
     {
+      console.log(initialPlayerPosition)
       setVisible(false) 
     }
   },[level, executing])
-
+ 
     return(
         <mesh>
           {visible?<PickupModel render={props.render} position={[props.position[0],props.position[1]+2,props.position[2]]} scale={[0.5,0.5,0.5]}/>:null}
