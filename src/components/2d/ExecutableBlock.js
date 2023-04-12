@@ -8,7 +8,7 @@ import {useSnapshot} from "valtio";
 
 export const ExecutableBlock = ({ active, name, type, setDragged, isDragged,index,check,rearrange, draggedIndex}) => {
     
-    const {animateNextLevel} = useSnapshot(state);
+    const {animateNextLevel, animateFall} = useSnapshot(state);
     const [{isDragging}, drag] = useDrag(() => ({
         type: type,
         item: name,
@@ -40,7 +40,7 @@ export const ExecutableBlock = ({ active, name, type, setDragged, isDragged,inde
         alt={`a ${name} block`}
         id={`xBlock${index}`}
         ref={!check?drag:isDragged?drag:drop}
-        className={`executable-block ${active &&!animateNextLevel?"animate-block":""}`}
+        className={`executable-block ${active &&!animateNextLevel &&!animateFall?"animate-block":""}`}
         style={{
           transform: `translate(-${(index+1)*7}px, 0)`,
           opacity: isDragging ? 0.5 : 1,
