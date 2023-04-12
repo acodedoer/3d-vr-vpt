@@ -30,6 +30,7 @@ const ExecutablesBoard = (props) => {
 
 
 function Sticker({ url, ...props }) {
+
   const image = useLoader(TextureLoader, url)
   return (
     <Decal {...props}>
@@ -53,14 +54,13 @@ function Sticker({ url, ...props }) {
 }
 
 const PlayButton = (props) => {
-  const playTexture = useLoader(TextureLoader, `assets/images/play.png`)
-  const stopTexture = useLoader(TextureLoader, `assets/images/stop.png`)
+  const {executing} = useSnapshot(state)
   return(
     <Interactive onSelect={()=>props.onSelect()}>
       <mesh scale={[1.5,1.5,0.1]} position={props.position}>
           <boxGeometry/>
           <meshStandardMaterial color={props.color}/>
-         <Sticker url={"assets/images/play.png"} rotation={[0,0,0]} scale={[0.5,0.5,0.5]}position={[0, 0, 0.5]}/>
+         <Sticker url={`assets/images/${executing?"stop":"play"}.png`} rotation={[0,0,0]} scale={[0.5,0.5,0.5]}position={[0, 0, 0.5]}/>
       </mesh>
     </Interactive>
   )
@@ -132,3 +132,5 @@ return(
     </>
 )
 }
+
+useLoader.preload(TextureLoader,["assets/images/stop.png","assets/images/play.png"])
