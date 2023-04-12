@@ -3,6 +3,7 @@ import { useDrag,useDrop } from 'react-dnd'
 import { ItemTypes } from '../../Constants'
 import { state } from "../../State";
 import {useSnapshot} from "valtio";
+import { useFrame } from '@react-three/fiber';
 
 
 export const ExecutableBlock = ({ active, name, type, setDragged, isDragged,index,check,rearrange, draggedIndex}) => {
@@ -32,9 +33,9 @@ export const ExecutableBlock = ({ active, name, type, setDragged, isDragged,inde
     useEffect(()=>{
         isDragging?setDragged(index):setDragged(null)
     },[isDragging,setDragged])
-
+ 
     return (
-        !isActive?
+        !isActive || draggedIndex-1===index?
         <img src={`assets/images/${name}.png`}
         alt={`a ${name} block`}
         id={`xBlock${index}`}
