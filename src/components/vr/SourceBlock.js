@@ -24,7 +24,6 @@ export const SourceBlock = (props) => {
 
     useInteraction(blockRef, 'onSelectEnd', (event) => {
       if(selected){
-        console.log("Dropped Source")
         setSelected(false);
         props.setBusy(false);
         props.setTopBusy(false);

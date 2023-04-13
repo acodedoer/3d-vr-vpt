@@ -125,7 +125,7 @@ export const ProgrammingEnvironment = (props) => {
 return(
     <>
         <ExecutablesBoard dimension={dimension} code={code}/>
-        <ExecutableBlocks dimension={dimension} setCode={updateCode} selectedBlock={selectedRef} topBusy={busy} code={code}/>
+        <ExecutableBlocks setLocalCode={setLocalCode} dimension={dimension} setCode={updateCode} setSelectedRef={setSelectedRef} selectedBlock={selectedRef} topBusy={busy} code={code}/>
         <PlayButton position={[dimension.width/2 + 0.95,5,-5]} color={executing?"red":"#00aa88"} onSelect={playProgram}/>
         <SourceBoard/>
         <SourceBlocks setCode={updateCode} setSelectedRef={setSelectedRef} setTopBusy={setBusy}/>

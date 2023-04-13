@@ -16,10 +16,12 @@ export const ExecutableBlocks = (props) => {
         />
         {
         props.code && props.code.map((block,i)=>(
-            <ExecutableBlock 
+            <ExecutableBlock
+            setLocalCode={props.setLocalCode}
                 code={props.code} 
                 setCode={props.setCode} 
                 selectedBlock={props.selectedBlock} 
+                setSelectedRef={props.setSelectedRef}
                 busy={props.topBusy} 
                 key={i} 
                 index={i} 

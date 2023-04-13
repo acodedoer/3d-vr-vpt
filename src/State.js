@@ -18,6 +18,10 @@ export const setCode = ( blocks ) => {
     state.code = blocks;
 }
 
+export const popCode = ( index ) => {
+    state.code.splice(index, 1)
+}
+
 export const setExecuting = ( value ) => {
     state.executing = value;
 }

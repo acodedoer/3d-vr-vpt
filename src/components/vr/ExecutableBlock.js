@@ -9,7 +9,7 @@ import { useSnapshot } from "valtio";
 
 
 export const ExecutableBlock = (props) => {
-  const {vrBlocksBusy} = useSnapshot(state)
+  const {vrBlocksBusy,placeholderIndex,code} = useSnapshot(state)
   const [selected, setSelected] = useState(false);
     const blockRef = useRef();
     const nullRef = useRef(null);
@@ -22,6 +22,7 @@ export const ExecutableBlock = (props) => {
         setVRBlocksBusy(true)
         setSelectedBlock({type:props.type, color:props.color})
         setSelected(true);
+        props.setSelectedRef(blockRef);
       }
     })
 
@@ -36,12 +37,16 @@ export const ExecutableBlock = (props) => {
         setVRBlocksBusy(false);
         setSelected(false);
         setSelectedBlock(undefined)
+        props.setSelectedRef(null);
+        if(placeholderIndex!==undefined){
+          props.setCode({type:props.type, color:props.color},placeholderIndex,props.index)
+        }
       }
     })
 
     useFrame(()=>{
-      if(props.color!=="white"){
-        if(props.busy &&props.selectedBlock && !collided){
+      if(props.color!=="white" && props.selectedBlock!==blockRef){
+        if(vrBlocksBusy &&props.selectedBlock && !collided ){
           if(Math.pow(props.selectedBlock.current.position.x - blockRef.current.position.x, 2) + Math.pow(props.selectedBlock.current.position.y - blockRef.current.position.y, 2) <= props.scale[0]/2 * props.scale[0]/2 ){
             setCollided(true);
           }
