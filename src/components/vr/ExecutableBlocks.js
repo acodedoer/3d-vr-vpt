@@ -1,37 +1,39 @@
 import { ExecutableBlock } from "./ExecutableBlock"
-import { Start } from "./Start"
+import { Flex, Box } from '@react-three/flex'
 export const ExecutableBlocks = (props) => {    
     return(
-    <> 
-        <ExecutableBlock
-            type={"start"} 
-            position={[props.dimension.left+0.8,5, -4.95]} 
-            scale={[1.2,1.2,0.1]}
-            start={true}
-            setCode={props.setCode} 
-            selectedBlock={props.selectedBlock} 
-            busy={props.topBusy}
-            key={-1} 
-            index={-1} 
-        />
+        <Flex position={[-5,5,-5]} flexDirection={"row"} justifyContent="center" alignItems="center">
+             <Box centerAnchor>
+                <ExecutableBlock
+                    type={"start"} 
+                    scale={[1.2,1.2,0.1]}
+                    start={true}
+                    setCode={props.setCode} 
+                    selectedBlock={props.selectedBlock} 
+                    busy={props.topBusy}
+                    key={-1} 
+                    index={-1} 
+                />
+            </Box>
         {
         props.code && props.code.map((block,i)=>(
-            <ExecutableBlock
-            setLocalCode={props.setLocalCode}
-                code={props.code} 
-                setCode={props.setCode} 
-                selectedBlock={props.selectedBlock} 
-                setSelectedRef={props.setSelectedRef}
-                busy={props.topBusy} 
-                key={i} 
-                index={i} 
-                scale={[1.2,1.2,0.1]} 
-                position={[props.dimension.left+0.2+((i+2)*0.6 + ((i+1)*0.6)+((i+1)*0.16)),5, -4.95]} 
-                type={block.type}
-                color={props.color}
-            />
+            <Box centerAnchor>
+                <ExecutableBlock
+                    setLocalCode={props.setLocalCode}
+                    code={props.code} 
+                    setCode={props.setCode} 
+                    selectedBlock={props.selectedBlock} 
+                    setSelectedRef={props.setSelectedRef}
+                    busy={props.topBusy} 
+                    key={i} 
+                    index={i} 
+                    scale={[1.2,1.2,0.1]} 
+                    type={block.type}
+                    color={props.color}
+                />
+            </Box>
         ))
     }    
-    </>
+    </Flex>
     )
   } 

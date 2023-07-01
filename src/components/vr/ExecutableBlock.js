@@ -16,7 +16,11 @@ export const ExecutableBlock = (props) => {
     const [collided, setCollided] = useState(false);
     const [placeholder, placeholderSet] = useState(false);
 
-    
+    useEffect(()=>{
+      console.log(blockRef.current)
+      blockRef&&console.log(props.type,"- ",blockRef.current.matrixWorld.elements[12],":",blockRef.current.matrixWorld.elements[13])
+    },blockRef)
+
     useInteraction(blockRef, 'onSelectStart', (event) => {
       if(!vrBlocksBusy && !props.start){
         setVRBlocksBusy(true)
@@ -28,7 +32,12 @@ export const ExecutableBlock = (props) => {
 
     useInteraction(blockRef, 'onMove', (event) => {
       if(vrBlocksBusy && selected && !props.start){
-        blockRef.current.position.x = event.intersections[0].point.x;
+        console.log("here")
+        blockRef.current.matrixAutoUpdate = false;
+        let m = [...blockRef.current.matrixWorld.elements];
+        m[12] = 30
+        blockRef.current.matrix.set(m);
+        console.log(blockRef.current.matrixWorld.elements)
       }
     })
 
@@ -39,7 +48,7 @@ export const ExecutableBlock = (props) => {
         setSelectedBlock(undefined)
         props.setSelectedRef(null);
         if(placeholderIndex!==undefined){
-          props.setCode({type:props.type, color:props.color},placeholderIndex,props.index)
+          props.setCode({type:props.type, color:props.color},placeholderIndex)
         }
       }
     })
@@ -47,12 +56,12 @@ export const ExecutableBlock = (props) => {
     useFrame(()=>{
       if(props.color!=="white" && props.selectedBlock!==blockRef){
         if(vrBlocksBusy &&props.selectedBlock && !collided ){
-          if(Math.pow(props.selectedBlock.current.position.x - blockRef.current.position.x, 2) + Math.pow(props.selectedBlock.current.position.y - blockRef.current.position.y, 2) <= props.scale[0]/2 * props.scale[0]/2 ){
+          if(Math.pow(props.selectedBlock.current.matrixWorld.elements[12] - blockRef.current.matrixWorld.elements[12], 2) + Math.pow(props.selectedBlock.current.matrixWorld.elements[13] - blockRef.current.matrixWorld.elements[13], 2) <= props.scale[0]/2 * props.scale[0]/2 ){
             setCollided(true);
           }
         }
         else if (collided){
-          if(!props.selectedBlock || Math.pow(props.selectedBlock.current.position.x - (blockRef.current.position.x+0.6), 2) + Math.pow(props.selectedBlock.current.position.y - blockRef.current.position.y, 2) > (props.scale[0]) *(props.scale[0])){
+          if(!props.selectedBlock || Math.pow(props.selectedBlock.current.matrixWorld.elements[12] - (blockRef.current.matrixWorld.elements[12]+0.6), 2) + Math.pow(props.selectedBlock.current.matrixWorld.elements[13] - blockRef.current.matrixWorld.elements[13], 2) > (props.scale[0]) *(props.scale[0])){
             setCollided(false);
           }
         }
@@ -60,13 +69,12 @@ export const ExecutableBlock = (props) => {
     })
 
     useEffect(()=>{
-      if(collided && !placeholder && props.color!=="white"){
-        !placeholder && props.setCode({type:"placeholder", color:"white"},props.index+1)
+      if(collided && !placeholder){
+        // !placeholder && props.setCode({type:"placeholder", color:"white"},props.index+1)
         placeholderSet(true);
         setPlaceholderIndex(props.index+1)
       }
       else if(!collided && placeholder){
-        props.setCode(null,props.index+1)
         placeholderSet(false)
         setPlaceholderIndex(undefined)
       }
@@ -75,19 +83,10 @@ export const ExecutableBlock = (props) => {
     return(
       !props.start?
       <>
-      {selected?
-       <Block 
-       type={props.type} 
-       scale = {props.scale} 
-       position={[props.position[0],props.position[1],props.position[2]-0.01]}
-       transparency={0.2}
-       color={props.color}
-       />:null}
       <InteractiveBlock
         transparency={1} 
         myRef = {blockRef} 
         scale = {props.scale}
-        position = {[props.position[0],props.position[1],vrBlocksBusy&&!selected?props.position[2]-0.01:props.position[2]]}
         type = {props.type}
         color={props.color}
         />
@@ -96,7 +95,6 @@ export const ExecutableBlock = (props) => {
       <Start 
         myRef = {blockRef}
         scale = {props.scale}
-        position = {[props.position[0],props.position[1],vrBlocksBusy&&!selected?props.position[2]-0.01:props.position[2]]}
         type = {props.type}
         
       />

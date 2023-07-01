@@ -69,7 +69,7 @@ const PlayButton = (props) => {
 export const ProgrammingEnvironment = (props) => {
   
     const {executing,level} = useSnapshot(state);
-    const [code, setLocalCode] = useState([]);
+    const [code, setLocalCode] = useState([{type:"Forward", color:"blue"}]);
     const[busy, setBusy] = useState(false);
     const[selectedRef, setSelectedRef] = useState(null);
     const initialWidth = 1.4*5 +1.6
@@ -85,7 +85,7 @@ export const ProgrammingEnvironment = (props) => {
     };
 
     useEffect(()=>{
-      setLocalCode([]);
+      setLocalCode([{type:"Forward", color:"blue"}]);
       setExecuting(false);
     },[level])
 
@@ -118,6 +118,7 @@ export const ProgrammingEnvironment = (props) => {
     }
 
     useEffect(()=>{
+      console.log(code)
       setCode(code)
       setExecuting(false)
   },[code])
