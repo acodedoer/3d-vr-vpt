@@ -50,9 +50,10 @@ export const ExecutableBlock = ({ active, name, type, setDragged, isDragged,inde
         <div ref={drop} style={{
             display:"flex",
             transform: `translate(-${(index+1)*7}px, 0)`,
+            backgroundColor:"rgba(255,255,255,0.5)"
         }}>
             <img className={"executable-block"} src={`assets/images/${name}.png`} alt={`a ${name} block`} />
-            <img className={"executable-block"} style={{transform: `translate(-3.5px, 0)`, opacity:0.5}} alt={`a placeholder block`} src={`assets/images/placeholder.png`} />
+            <div className={"executable-block"} style={{transform: `translate(0px, 0)`, opacity:0.5}}></div>
         </div>
     )
 }

@@ -14,19 +14,12 @@ const  App = () => {
   const camRef = useRef();
   return (
     <div id="canvas-container">
-      <VRButton/>
-      {/* <ARButton/> */}
-      <Canvas camera={{zoom:10, position:[-2.5,100,2.5]}} style={{ background: COLORS.environmentBG}}>
-        <XR>
-        <Controllers />
-        <Hands />
+      <Canvas camera={{position:[-2.5,15,2.5]}} style={{ background: COLORS.environmentBG }}>
         <ambientLight intensity={0.1} />
         <directionalLight color="white" position={[0, 0, 5]} />
-        <ExecutionEnvironment camRef={camRef}/> 
-        <ProgrammingEnvironmentVR/>
+        <ExecutionEnvironment camRef={camRef}/>
         <OrbitControls />
-        </XR>
-      </Canvas>  
+      </Canvas>   
       <DndProvider backend={HTML5Backend}>
         <ProgrammingEnvironment2D/>
       </DndProvider>     

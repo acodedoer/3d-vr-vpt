@@ -86,6 +86,7 @@ body{
   max-height: 72.8125px;
   min-width: 80px;
   min-height: 72.8125px;
+  z-index: 1000;
 }
 
 @keyframes fadeInOut { 

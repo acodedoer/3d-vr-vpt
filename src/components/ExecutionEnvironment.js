@@ -12,7 +12,7 @@ export const ExecutionEnvironment = (props) => {
     });
 
     return(
-        <group scale={[0.5,0.5,0.5]} position={[3,0.5,-2]}>
+        <group scale={[1,1,1]} position={[3,0.5,-2]}>
         <>
             <GameController/>
             <Level/> 
