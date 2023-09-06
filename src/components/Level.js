@@ -1,12 +1,21 @@
 import Tile from "./Tile"
 import React, { ComponentProps, useEffect, useState } from 'react'
-import { state} from "../State";
+import { state, setAnimateFall} from "../State";
 import {useSnapshot} from "valtio";
 import { LEVELS } from "../Levels";
 
 export const Level = () => {
-    const {level} = useSnapshot(state);
+    const {level, currentPlayerPosition} = useSnapshot(state);
     const [levelData, setLevelData] = useState([...LEVELS[level].tiles])
+    
+    useEffect(()=>{
+  
+        if(Math.abs(currentPlayerPosition[0])>4 ||Math.abs(currentPlayerPosition[1])>4){
+          setAnimateFall(true);
+        }
+    
+    },[currentPlayerPosition])
+
     useEffect(()=>{
         setLevelData(LEVELS[level]["tiles"])
     },[level])
