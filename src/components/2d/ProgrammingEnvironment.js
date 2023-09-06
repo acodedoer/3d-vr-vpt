@@ -79,9 +79,10 @@ export const ProgrammingEnvironment = (props) => {
     const [scrollPos, setScrollPos] = useState(11);
 
     const scrollTo = (dir) =>{
-      dir==="left"?setScrollPos(scrollPos-1):setScrollPos(scrollPos+1);
-      const elem = document.getElementById(`xBlock${scrollPos}`);
+      let id = dir==="left"?scrollPos-1:scrollPos+1;
+      const elem = document.getElementById(`xBlock${id}`);
       elem.scrollIntoView();
+      setScrollPos(id);
     }
 
 
@@ -93,8 +94,6 @@ export const ProgrammingEnvironment = (props) => {
               <div style={{display:"flex"}}>
                 <div id="execution-area" style={{backgroundColor:COLORS.environmentBG.darken(0.2).hex()}}>
                  
-                  {/* <Scroller dir={"left"}/>
-                  <Scroller dir={"right"}/> */}
                   <ExecutableBlocks refData ={drop} showPlaceholder={isOver && canDrop} rearrange={rearrange} busy={busy} blocks={program}/>
                 </div>
                 <button id="playButton" style={{backgroundColor:executing?"red":COLORS.playButton}} onClick={()=>playProgram()}>

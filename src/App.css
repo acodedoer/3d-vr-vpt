@@ -58,14 +58,13 @@ body{
 }
 
 #execution-area{
-  max-width: 800px;
-  width: 800px;
+  max-width: 967px;
+  width: 967px;
   height: 90px;
   display: flex;
   justify-content: left;
   align-items: center;
   padding-left: 8px;
-  max-width: 800px;
   overflow: hidden;
   position: relative;
 
