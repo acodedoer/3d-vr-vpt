@@ -11,17 +11,23 @@ import { Bin } from "./Bin";
 export const ProgrammingEnvironment = (props) => {
     const {code,executing,level} = useSnapshot(state);
     const [running,setRunning] = useState(false);
+    const [full, setFull] = useState(false);
     const [program, setProgram] = useState([]);
     
     const [{ isOver, canDrop }, drop] = useDrop({
       accept: [ItemTypes.FORWARD, ItemTypes.LEFT, ItemTypes.RIGHT],
-      drop: (i,monitor)=>{setProgram([...program, {name:monitor.getItemType(),type:monitor.getItemType()+"Code"}])},
+      drop: (i,monitor)=>{updateProgram({name:monitor.getItemType(),type:monitor.getItemType()+"Code"})},
       collect: (monitor) => ({
         isOver: monitor.isOver(),
         canDrop: monitor.canDrop(),
       }) 
       })
   
+      const updateProgram = (block) => {
+        if(!full){
+          setProgram([...program,block])
+        }
+      }
       useEffect(()=>{
         setProgram([]);
         setRunning(false);
@@ -47,17 +53,27 @@ export const ProgrammingEnvironment = (props) => {
     }
 
     const playProgram = () => {
-      console.log("Play is: ", running)
-      if(!running){
-        setRunning(true);
-      }
-      else{
-        setRunning(false);
+      if(program.length>0){
+
+        if(!running){
+          setRunning(true);
+        }
+        else{
+          setRunning(false);
+        }
       }
     };
     const [busy, setBusy] = useState(false);
 
     useEffect(()=>{
+        if(program.length<12 && full ===true)
+        {
+          setFull(false)
+        }
+        else if(program.length>=12 && full ===false)
+        {
+          setFull(true)
+        }
         setCode(program)
         setRunning(false)
     },[program])
@@ -76,6 +92,14 @@ export const ProgrammingEnvironment = (props) => {
       )
     }
 
+    const BlocksLeft = () => {
+      return(
+        <div style={{display:"flex", flexDirection:"row", position:"absolute", top:0, left:0}}>
+          <img src={`/assets/images/forward.png`}/>
+          <p>x {12-program.length}</p>
+        </div>
+      )
+    }
     const [scrollPos, setScrollPos] = useState(11);
 
     const scrollTo = (dir) =>{
@@ -91,10 +115,14 @@ export const ProgrammingEnvironment = (props) => {
               <div style={{position:"absolute", top:0,right:0, padding:"20px", fontSize:"2em", fontWeight:"bold"}}>
                 Level {level}
               </div>
+              <div style={{position:"absolute", top:0,left:0, padding:"20px", fontSize:"2em", fontWeight:"bold", display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center"}}>
+                <img src={`/assets/images/forward.png`} style={{maxWidth:"1em", maxHeight:"1em"}}/>
+                <span> &#215; </span> {12-program.length}
+              </div>
               <div style={{display:"flex"}}>
                 <div id="execution-area" style={{backgroundColor:COLORS.environmentBG.darken(0.2).hex()}}>
-                 
-                  <ExecutableBlocks refData ={drop} showPlaceholder={isOver && canDrop} rearrange={rearrange} busy={busy} blocks={program}/>
+                  {busy && full?<div style={{width:"100%", textAlign:"center"}}><h2>Blocks Area Full, Drag a Block From this Area to The Bin to Delete It</h2></div>:
+                  <ExecutableBlocks executing={executing} refData ={drop} showPlaceholder={isOver && canDrop} rearrange={rearrange} busy={busy} blocks={program}/>}
                 </div>
                 <button id="playButton" style={{backgroundColor:executing?"red":COLORS.playButton}} onClick={()=>playProgram()}>
                   <img 

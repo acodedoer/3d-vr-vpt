@@ -20,6 +20,7 @@ export const ExecutableBlocks = (props) =>{
     useEffect(()=>setBlocks(props.blocks),[props.blocks])
       return(
         <>
+        {props.executing?<div style={{position:"absolute",width:"100%",height:"100%", zIndex:"9000000",opacity:0.2,backgroundColor:"black"}}></div>:null}
         <StartBlock
            rearrange={props.rearrange}
            draggedIndex={draggedIndex}
